@@ -8,21 +8,28 @@ require_once("includes/head.php");
 
 <main class="loginreg">
 
-    <h1 class="loginreg_header">
-        Time Tracker
-    </h1>
+    <h1 class="loginreg_header"><?php echo APP_NAME; ?></h1>
 
     <form class="loginreg_form" method="post">
-        <input type="text" class="loginreg_form_input" name="" placeholder="Username">
-        <input type="password" class="loginreg_form_input" name="" placeholder="Password">
-        <input type="submit" class="loginreg_form_submit" value="Register">
-        <a class="loginreg_form_change">Already have an account? Log in</a>
+        <input type="text" class="loginreg_form_input" name=""
+        placeholder="<?php echo LOGINREG_USERNAME; ?>">
+        <input type="password" class="loginreg_form_input" name=""
+        placeholder="<?php echo LOGINREG_PASSWORD; ?>">
+        <input type="submit" class="loginreg_form_submit"
+        value="<?php echo LOGINREG_REGISTER; ?>">
+        <a class="loginreg_form_change" href="login.php">
+            <?php echo LOGINREG_CHANGE_REGISTER; ?>
+        </a>
     </form>
 
     <footer class="loginreg_footer">
-        <pre>
-MY LOGO HERE
-        </pre>
+<pre class="loginreg_footer_logo">
+░░█ ▄▀█ █▀▄▀█ █▀▀ █▀
+█▄█ █▀█ █░▀░█ ██▄ ▄█
+
+█▀▄▀█ █▀▀ █░░ █░░ █▀█ █▀█
+█░▀░█ ██▄ █▄▄ █▄▄ █▄█ █▀▄
+</pre>
     </footer>
 
 </main>

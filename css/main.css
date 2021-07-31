@@ -77,7 +77,7 @@ p {
   border-bottom: 4px solid #add8e6;
   height: 2rem;
   transition: all 0.1s;
-  min-width: 30%;
+  width: 300px;
 }
 
 .loginreg_form_input:active, .loginreg_form_input:focus {
@@ -114,6 +114,7 @@ p {
   grid-row: 1 / 2;
   justify-content: center;
   letter-spacing: 4px;
+  text-align: center;
   text-shadow: 5px 1px black;
   text-transform: uppercase;
   user-select: none;

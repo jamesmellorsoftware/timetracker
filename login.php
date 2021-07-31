@@ -17,7 +17,9 @@ require_once("includes/head.php");
         placeholder="<?php echo LOGINREG_PASSWORD; ?>">
         <input type="submit" class="loginreg_form_submit"
         value="<?php echo LOGINREG_LOGIN; ?>">
-        <a class="loginreg_form_change">Don't have an account? Register</a>
+        <a class="loginreg_form_change" href="register.php">
+            <?php echo LOGINREG_CHANGE_LOGIN; ?>
+        </a>
     </form>
 
     <footer class="loginreg_footer">
