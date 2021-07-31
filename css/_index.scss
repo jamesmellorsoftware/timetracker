@@ -2,11 +2,41 @@
     display: grid;
     height: 100%;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2 min-content) 1fr min-content;
+    grid-template-rows: 30px 50px 1fr 1fr;
     width: 100%;
 
+    &_date {
+        grid-column: 1 / -1;
+        grid-row: 4 / 5;
+    }
+
     &_header {
+        align-items: center;
+        background-color: $color_lightblue;
         display: flex;
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
         justify-content: space-between;
+
+        &_logout {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: center;
+        }
+    }
+
+    &_newtask {
+        align-items: center;
+        display: flex;
+        grid-column: 1 / -1;
+        grid-row: 2 / 3;
+        justify-content: space-between;
+    }
+
+    &_tasks {
+        grid-column: 1 / -1;
+        grid-row: 3 / 4;
     }
 }

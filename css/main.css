@@ -43,6 +43,18 @@ h2 {
   text-shadow: 3px 1px black;
 }
 
+input {
+  border: none;
+  border-bottom: 4px solid #add8e6;
+  height: 2rem;
+  transition: all 0.1s;
+}
+
+input:active, input:focus {
+  background-color: #e8f4f8;
+  outline: none !important;
+}
+
 .btn-1 {
   background-color: #add8e6;
   border: none !important;
@@ -114,21 +126,13 @@ h2 {
 }
 
 .loginreg_form_input {
-  border: none;
-  border-bottom: 4px solid #add8e6;
-  height: 2rem;
-  transition: all 0.1s;
   width: 300px;
-}
-
-.loginreg_form_input:active, .loginreg_form_input:focus {
-  background-color: #e8f4f8;
-  outline: none !important;
 }
 
 .loginreg_form_submit {
   font-size: 1.1rem;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .loginreg_form_submit:hover {
@@ -152,12 +156,42 @@ h2 {
   display: grid;
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(2 min-content) 1fr min-content;
+  grid-template-rows: 30px 50px 1fr 1fr;
   width: 100%;
 }
 
+.mainapp_date {
+  grid-column: 1 / -1;
+  grid-row: 4 / 5;
+}
+
 .mainapp_header {
+  align-items: center;
+  background-color: #add8e6;
   display: flex;
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
   justify-content: space-between;
+}
+
+.mainapp_header_logout {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.mainapp_newtask {
+  align-items: center;
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+  justify-content: space-between;
+}
+
+.mainapp_tasks {
+  grid-column: 1 / -1;
+  grid-row: 3 / 4;
 }
 /*# sourceMappingURL=main.css.map */

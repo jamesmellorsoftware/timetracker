@@ -45,6 +45,18 @@ h2 {
     text-shadow: 3px 1px black;
 }
 
+input {
+    border: none;
+    border-bottom: 4px solid $color_lightblue;
+    height: 2rem;
+    transition: all 0.1s;
+    &:active,
+    &:focus {
+        background-color: lighten($color_lightblue, 15%);
+        outline: none !important;
+    }
+}
+
 .btn-1 {
     background-color: $color_lightblue;
     border: none !important;
