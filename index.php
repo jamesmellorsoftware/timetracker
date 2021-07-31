@@ -6,38 +6,61 @@ require_once("includes/head.php");
 
 ?>
 
-<main class="">
+<main class="mainapp">
 
-    <header class="">
-        <h2 class="">Time Tracker</h2>
-        <a class="" href="#">Logout</a>
+    <header class="mainapp_header">
+        <h2 class="mainapp_header_appname">
+            <?php echo APP_NAME; ?>
+        </h2>
+        <a class="mainapp_header_logout btn-1" href="#">
+            <?php echo MAINAPP_LOGOUT;?>
+        </a>
     </header>
 
-    <section class="">
-        <input type="text" class="" placeholder="Task Name">
-        <a class="">Start</a>
+    <section class="mainapp_newtask">
+        <input type="text" class="mainapp_newtask_text"
+        placeholder="<?php echo MAINAPP_TEXT; ?>">
+        <a class="mainapp_newtask_button">
+            <?php echo MAINAPP_BUTTON; ?>
+        </a>
     </section>
 
-    <section class="">
+    <section class="mainapp_tasks">
 
-        <div class="">
-            <p class="">
-                <span class="">Task Name</span>
-                <span class="">00:00:00</span>
+        <div class="mainapp_tasks_task">
+            <p class="mainapp_tasks_task_taskname">
+                <span class="mainapp_tasks_task_taskname_name">
+                    Task Name
+                </span>
+                <span class="mainapp_tasks_task_taskname_duration">
+                    00:00:00
+                </span>
             </p>
-            <div class="">
-                STOP
-                TRASH
+            <div class="mainapp_tasks_task_controls">
+                <span class="mainapp_tasks_task_controls_stop">
+                    STOP
+                </span>
+                <span class="mainapp_tasks_task_controls_delete">
+                    TRASH
+                </span>
             </div>
-            <div class="">
+            <div class="mainapp_tasks_task_percentage">
                 BLUE 75% GREY
             </div>
         </div>
 
     </section>
 
-    <section class="">
-    
+    <section class="mainapp_date">
+        <span class="mainapp_date_select prevday">
+            &lt;
+        </span>
+        <span class="mainapp_date_select today">
+            Today
+        </span>
+        <span class="mainapp_date_select nextday">
+            &gt;
+        </span>
     </section>
 
 </main>

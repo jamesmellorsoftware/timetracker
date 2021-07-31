@@ -1,5 +1,4 @@
 .loginreg {
-    background-color: $color_background;
     display: grid;
     height: 100%;
     grid-template-columns: 1fr;
@@ -32,8 +31,8 @@
         justify-content: space-around;
 
         &_change {
-            border-bottom: 1px solid rgb(255,255,255);
-            color: rgb(255,255,255);
+            border-bottom: 1px solid rgb(0,0,0);
+            color: rgb(0,0,0);
             cursor: pointer;
             font-style: italic;
             transition: all 0.3s;
@@ -41,7 +40,14 @@
 
             &:hover {
                 background-color: $color_lightblue;
-                font-size: 1.1rem;
+                transform: scale(1.1);
+            }
+
+            &:active,
+            &:focus {
+                background-color: darken($color_lightblue, 20%);
+                color: rgb(255,255,255);
+                transform: scale(0.9);
             }
         }
 
@@ -60,38 +66,21 @@
         }
 
         &_submit {
-            background-color: $color_lightblue;
-            border: none !important;
-            cursor: pointer;
             font-size: 1.1rem;
-            font-style: italic;
-            margin: 0;
             padding: 1rem;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            user-select: none;
 
-            &:hover {
-                background-color: darken($color_lightblue, 20%);
-                color: rgb(255,255,255);
-                font-size: 1.2rem;
-            }
+            &:hover { transform: scale(1.1); }
+            &:active,
+            &:focus { transform: scale(0.9); }
         }
     }
 
     &_header {
         align-items: center;
-        color: rgb(255,255,255);
-        cursor: default;
         display: flex;
-        font-style: italic;
         grid-column: 1 / -1;
         grid-row: 1 / 2;
         justify-content: center;
-        letter-spacing: 4px;
         text-align: center;
-        text-shadow: 5px 1px black;
-        text-transform: uppercase;
-        user-select: none;
     }
 }

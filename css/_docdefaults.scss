@@ -1,5 +1,6 @@
 // ===== DOCUMENT PROPERTIES ===== //
 body {
+    background-color: $color_background;
     box-sizing: border-box;
     color: rgb(0,0,0); 
     font-family: $default_font, $default_font_fallback;
@@ -23,4 +24,39 @@ h3,
 p {
     margin: 0;
     padding: 0;
+}
+
+h1,
+h2 {
+    color: rgb(255,255,255);
+    cursor: default;
+    font-style: italic;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+h1 {
+    letter-spacing: 4px;
+    text-shadow: 5px 1px black;
+}
+
+h2 {
+    letter-spacing: 4px;
+    text-shadow: 3px 1px black;
+}
+
+.btn-1 {
+    background-color: $color_lightblue;
+    border: none !important;
+    cursor: pointer;
+    font-style: italic;
+    margin: 0;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    user-select: none;
+
+    &:hover {
+        background-color: darken($color_lightblue, 20%);
+        color: rgb(255,255,255);
+    }
 }

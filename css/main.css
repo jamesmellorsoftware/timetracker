@@ -1,4 +1,5 @@
 body {
+  background-color: #a9a9a9;
   box-sizing: border-box;
   color: black;
   font-family: "Helvetica", "sans-serif";
@@ -23,8 +24,42 @@ p {
   padding: 0;
 }
 
+h1,
+h2 {
+  color: white;
+  cursor: default;
+  font-style: italic;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+h1 {
+  letter-spacing: 4px;
+  text-shadow: 5px 1px black;
+}
+
+h2 {
+  letter-spacing: 4px;
+  text-shadow: 3px 1px black;
+}
+
+.btn-1 {
+  background-color: #add8e6;
+  border: none !important;
+  cursor: pointer;
+  font-style: italic;
+  margin: 0;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  user-select: none;
+}
+
+.btn-1:hover {
+  background-color: #5fb3ce;
+  color: white;
+}
+
 .loginreg {
-  background-color: #a9a9a9;
   display: grid;
   height: 100%;
   grid-template-columns: 1fr;
@@ -59,8 +94,8 @@ p {
 }
 
 .loginreg_form_change {
-  border-bottom: 1px solid white;
-  color: white;
+  border-bottom: 1px solid black;
+  color: black;
   cursor: pointer;
   font-style: italic;
   transition: all 0.3s;
@@ -69,7 +104,13 @@ p {
 
 .loginreg_form_change:hover {
   background-color: #add8e6;
-  font-size: 1.1rem;
+  transform: scale(1.1);
+}
+
+.loginreg_form_change:active, .loginreg_form_change:focus {
+  background-color: #5fb3ce;
+  color: white;
+  transform: scale(0.9);
 }
 
 .loginreg_form_input {
@@ -86,37 +127,37 @@ p {
 }
 
 .loginreg_form_submit {
-  background-color: #add8e6;
-  border: none !important;
-  cursor: pointer;
   font-size: 1.1rem;
-  font-style: italic;
-  margin: 0;
   padding: 1rem;
-  text-transform: uppercase;
-  transition: all 0.3s;
-  user-select: none;
 }
 
 .loginreg_form_submit:hover {
-  background-color: #5fb3ce;
-  color: white;
-  font-size: 1.2rem;
+  transform: scale(1.1);
+}
+
+.loginreg_form_submit:active, .loginreg_form_submit:focus {
+  transform: scale(0.9);
 }
 
 .loginreg_header {
   align-items: center;
-  color: white;
-  cursor: default;
   display: flex;
-  font-style: italic;
   grid-column: 1 / -1;
   grid-row: 1 / 2;
   justify-content: center;
-  letter-spacing: 4px;
   text-align: center;
-  text-shadow: 5px 1px black;
-  text-transform: uppercase;
-  user-select: none;
+}
+
+.mainapp {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2 min-content) 1fr min-content;
+  width: 100%;
+}
+
+.mainapp_header {
+  display: flex;
+  justify-content: space-between;
 }
 /*# sourceMappingURL=main.css.map */

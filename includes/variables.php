@@ -12,4 +12,9 @@ defined("LOGINREG_PASSWORD") ? null : define("LOGINREG_PASSWORD", "Password");
 defined("LOGINREG_REGISTER") ? null : define("LOGINREG_REGISTER", "Register");
 defined("LOGINREG_USERNAME") ? null : define("LOGINREG_USERNAME", "Username");
 
+// MAIN APP
+defined("MAINAPP_BUTTON") ? null : define("MAINAPP_BUTTON", "Start");
+defined("MAINAPP_LOGOUT") ? null : define("MAINAPP_LOGOUT", "Log Out");
+defined("MAINAPP_TEXT") ? null : define("MAINAPP_TEXT", "Task Name");
+
 ?>
