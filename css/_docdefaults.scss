@@ -1,0 +1,26 @@
+// ===== DOCUMENT PROPERTIES ===== //
+body {
+    box-sizing: border-box;
+    color: rgb(0,0,0); 
+    font-family: $default_font, $default_font_fallback;
+    font-size: $default_font_size;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 100vw;
+}
+
+// ===== REMOVE DEFAULT STYLES ===== //
+a {
+    color: rgb(0,0,0);
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+    padding: 0;
+}

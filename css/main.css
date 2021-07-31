@@ -1,0 +1,121 @@
+body {
+  box-sizing: border-box;
+  color: black;
+  font-family: "Helvetica", "sans-serif";
+  font-size: "16px";
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100vw;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.loginreg {
+  background-color: #a9a9a9;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 35% 30% 35%;
+  width: 100%;
+}
+
+.loginreg_footer {
+  align-items: center;
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 3 / 4;
+  justify-content: center;
+}
+
+.loginreg_footer_logo {
+  color: white;
+  cursor: default;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 5px 2px black;
+  user-select: none;
+}
+
+.loginreg_form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+  justify-content: space-around;
+}
+
+.loginreg_form_change {
+  border-bottom: 1px solid white;
+  color: white;
+  cursor: pointer;
+  font-style: italic;
+  transition: all 0.3s;
+  user-select: none;
+}
+
+.loginreg_form_change:hover {
+  background-color: #add8e6;
+  font-size: 1.1rem;
+}
+
+.loginreg_form_input {
+  border: none;
+  border-bottom: 4px solid #add8e6;
+  height: 2rem;
+  transition: all 0.1s;
+  min-width: 30%;
+}
+
+.loginreg_form_input:active, .loginreg_form_input:focus {
+  background-color: #e8f4f8;
+  outline: none !important;
+}
+
+.loginreg_form_submit {
+  background-color: #add8e6;
+  border: none !important;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-style: italic;
+  margin: 0;
+  padding: 1rem;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  user-select: none;
+}
+
+.loginreg_form_submit:hover {
+  background-color: #5fb3ce;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.loginreg_header {
+  align-items: center;
+  color: white;
+  cursor: default;
+  display: flex;
+  font-style: italic;
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+  justify-content: center;
+  letter-spacing: 4px;
+  text-shadow: 5px 1px black;
+  text-transform: uppercase;
+  user-select: none;
+}
+/*# sourceMappingURL=main.css.map */
