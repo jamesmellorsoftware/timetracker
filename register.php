@@ -11,12 +11,12 @@ if ($session->is_signed_in()) header("Location: index.php");
 
         <p id="username_errors" class="loginreg_form_error error-text nodisplay">some error</p>
 
-        <input id="username" type="text" class="loginreg_form_input" name=""
+        <input id="username" type="text" class="loginreg_form_input"
         placeholder="<?php echo LOGINREG_USERNAME; ?>">
 
         <p id="password_errors" class="loginreg_form_error error-text nodisplay">some error</p>
 
-        <input id="password" type="password" class="loginreg_form_input" name=""
+        <input id="password" type="password" class="loginreg_form_input"
         placeholder="<?php echo LOGINREG_PASSWORD; ?>">
 
         <a class="loginreg_form_submit btn-1 register" id="login_register">

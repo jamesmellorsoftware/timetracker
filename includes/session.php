@@ -30,8 +30,8 @@ class Session {
     public function login($user){
         // Sets session user ID to submitted user object's user ID and signed_in property true
         if ($user) {
-            $this->username = $_SESSION['username'] = $user->username;
-            $this->user_id  = $_SESSION['user_id']  = $user->id;
+            $this->username  = $_SESSION['username'] = $user->username;
+            $this->id        = $_SESSION['user_id']  = $user->id;
             $this->signed_in = true;
         }
     }

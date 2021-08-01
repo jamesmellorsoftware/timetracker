@@ -9,19 +9,20 @@ if ($session->is_signed_in()) header("Location: index.php");
 
     <form class="loginreg_form" method="post">
 
-        <p class="loginreg_form_error error-text nodisplay"></p>
+        <p id="username_errors" class="loginreg_form_error error-text nodisplay"></p>
 
-        <input type="text" class="loginreg_form_input" name=""
+        <input id="username" type="text" class="loginreg_form_input"
         placeholder="<?php echo LOGINREG_USERNAME; ?>">
 
-        <p class="loginreg_form_error error-text nodisplay"></p>
+        <p id="password_errors" class="loginreg_form_error error-text nodisplay"></p>
 
-        <input type="password" class="loginreg_form_input" name=""
+        <input id="password" type="password" class="loginreg_form_input"
         placeholder="<?php echo LOGINREG_PASSWORD; ?>">
 
-        <input type="submit" class="loginreg_form_submit btn-1"
-        value="<?php echo LOGINREG_LOGIN; ?>">
-        
+        <a class="loginreg_form_submit btn-1 login" id="login_register">
+            <?php echo LOGINREG_LOGIN; ?>
+        </a>
+
         <a class="loginreg_form_change" href="register.php">
             <?php echo LOGINREG_CHANGE_LOGIN; ?>
         </a>
