@@ -65,6 +65,7 @@ input {
     cursor: pointer;
     display: flex;
     font-style: italic;
+    height: $input_height;
     justify-content: center;
     margin: 0;
     text-transform: uppercase;
@@ -82,8 +83,9 @@ input {
     display: block;
     font-size: 0.9rem;
     font-style: italic;
+    visibility: visible;
 }
 
 .input-invalid { outline: 2px solid $color_error; }
 
-.nodisplay { display: none !important; }
+.nodisplay { visibility: hidden !important; }

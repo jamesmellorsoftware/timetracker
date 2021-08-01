@@ -21,6 +21,7 @@ if ($session->is_signed_in()) header("Location: index.php");
 
         <input type="submit" class="loginreg_form_submit btn-1"
         value="<?php echo LOGINREG_LOGIN; ?>">
+        
         <a class="loginreg_form_change" href="register.php">
             <?php echo LOGINREG_CHANGE_LOGIN; ?>
         </a>

@@ -62,6 +62,7 @@ input:active, input:focus {
   cursor: pointer;
   display: flex;
   font-style: italic;
+  height: 2rem;
   justify-content: center;
   margin: 0;
   text-transform: uppercase;
@@ -79,6 +80,7 @@ input:active, input:focus {
   display: block;
   font-size: 0.9rem;
   font-style: italic;
+  visibility: visible;
 }
 
 .input-invalid {
@@ -86,7 +88,7 @@ input:active, input:focus {
 }
 
 .nodisplay {
-  display: none !important;
+  visibility: hidden !important;
 }
 
 .loginreg {

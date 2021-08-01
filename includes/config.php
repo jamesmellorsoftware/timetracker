@@ -10,5 +10,6 @@ define('DB_NAME', 'timetracker');
 require_once('db.php');
 require_once('session.php');
 require_once('db_objects.php');
+require_once('user.php');
 
 ?>

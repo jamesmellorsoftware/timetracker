@@ -39,7 +39,7 @@ class User extends db_objects {
     }
 
     public function exists() {
-        $sql = "SELECT * FROM $this->db_table WHERE username = $this->username ";
+        $sql = "SELECT * FROM " . User::get_table_name() . " WHERE username = '$this->username' ";
         $result_set = self::execute_query($sql);
         return !empty($result_set) ? true : false;
     }
