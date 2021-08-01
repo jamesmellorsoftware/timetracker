@@ -5,7 +5,6 @@ class User extends db_objects {
     protected static $db_table = "users";
     protected static $db_table_fields = array("id", "username", "password");
 
-    // Initialise user properties
     public $id;
     public $username;
     public $password;
@@ -28,7 +27,9 @@ class User extends db_objects {
     }
 
     public function exists() {
-        $sql = "SELECT * FROM " . User::get_table_name() . " WHERE username = '$this->username' ";
+        $sql = "SELECT * FROM " . User::get_table_name() . " ";
+        $sql.= "WHERE username = '$this->username' ";
+        $sql.= "LIMIT 1 ";
         $result_set = self::execute_query($sql);
         return !empty($result_set) ? true : false;
     }
