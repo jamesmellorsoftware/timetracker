@@ -57,6 +57,7 @@ input {
     }
 }
 
+// ===== HELPER CLASSES ===== //
 .btn-1 {
     align-items: center;
     background-color: $color_lightblue;
@@ -75,3 +76,14 @@ input {
         color: rgb(255,255,255);
     }
 }
+
+.error-text {
+    color: $color_error;
+    display: block;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.input-invalid { outline: 2px solid $color_error; }
+
+.nodisplay { display: none !important; }

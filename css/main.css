@@ -74,6 +74,21 @@ input:active, input:focus {
   color: white;
 }
 
+.error-text {
+  color: #ff0000;
+  display: block;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.input-invalid {
+  outline: 2px solid #ff0000;
+}
+
+.nodisplay {
+  display: none !important;
+}
+
 .loginreg {
   display: grid;
   height: 100%;
@@ -316,6 +331,5 @@ input:active, input:focus {
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;
-  text-transform: uppercase;
 }
 /*# sourceMappingURL=main.css.map */
