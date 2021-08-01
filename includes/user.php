@@ -12,8 +12,8 @@ class User extends db_objects {
 
     public function save(){
         if (!$this->create()) {
-            $this->errors["username"] = "Error creating user.";
-            $this->errors["password"] = "Error creating user.";
+            $this->errors["username"] = LOGINREG_ERROR_GENERAL;
+            $this->errors["password"] = LOGINREG_ERROR_GENERAL;
             return false;
         }
         return true;
@@ -36,17 +36,17 @@ class User extends db_objects {
     public function verify_registration() {
 
         // Check empty fields
-        if (empty($this->username)) $this->errors['username'] = "Username cannot be empty!";
-        if (empty($this->password)) $this->errors['password'] = "Password cannot be empty!";
+        if (empty($this->username)) $this->errors['username'] = LOGINREG_ERROR_USERNAME_EMPTY;
+        if (empty($this->password)) $this->errors['password'] = LOGINREG_ERROR_PASSWORD_EMPTY;
 
         // Check field lengths
-        if (strlen($this->username) > 30)  $this->errors['username']  = "Username too long";
-        if (strlen($this->password) > 30)  $this->errors['password']  = "Password too long";
+        if (strlen($this->username) > LIMIT_USERNAME) $this->errors['username'] = LOGINREG_ERROR_USERNAME_LENGTH;
+        if (strlen($this->password) > LIMIT_PASSWORD) $this->errors['password'] = LOGINREG_ERROR_PASSWORD_LENGTH;
 
         if (!empty($this->errors)) return false;
 
         // Check if user exists
-        if ($this->exists()) $this->errors['username'] = "Username already in use.";
+        if ($this->exists()) $this->errors['username'] = LOGINREG_ERROR_USERNAME_IN_USE;
 
         if (!empty($this->errors)) return false;
 
@@ -57,24 +57,24 @@ class User extends db_objects {
     public function verify_login() {
 
         // Check empty fields
-        if (empty($this->username)) $this->errors['username'] = "Username cannot be empty!";
-        if (empty($this->password)) $this->errors['password'] = "Password cannot be empty!";
+        if (empty($this->username)) $this->errors['username'] = LOGINREG_ERROR_USERNAME_EMPTY;
+        if (empty($this->password)) $this->errors['password'] = LOGINREG_ERROR_PASSWORD_EMPTY;
 
         // Check field lengths
-        if (strlen($this->username) > 30)  $this->errors['username']  = "Username too long";
-        if (strlen($this->password) > 30)  $this->errors['password']  = "Password too long";
+        if (strlen($this->username) > LIMIT_USERNAME) $this->errors['username'] = LOGINREG_ERROR_USERNAME_LENGTH;
+        if (strlen($this->password) > LIMIT_PASSWORD) $this->errors['password'] = LOGINREG_ERROR_PASSWORD_LENGTH;
 
         if (!empty($this->errors)) return false;
 
         $user_retrieved = User::retrieve($this->username);
 
         if (!$user_retrieved || empty($user_retrieved)) {
-            $this->errors['username'] = "Username not found";
+            $this->errors['username'] = LOGINREG_ERROR_USER_NOT_FOUND;
             return false;
         }
 
         if (!password_verify($this->password, $user_retrieved->password)) {
-            $this->errors['password'] = "Incorrect password";
+            $this->errors['password'] = LOGINREG_ERROR_PASSWORD_INCORRECT;
             return false;
         }
 

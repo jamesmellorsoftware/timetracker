@@ -12,11 +12,13 @@ if ($session->is_signed_in()) header("Location: index.php");
         <p id="username_errors" class="loginreg_form_error error-text nodisplay"></p>
 
         <input id="username" type="text" class="loginreg_form_input"
+        maxlength="<?php echo LIMIT_USERNAME; ?>"
         placeholder="<?php echo LOGINREG_USERNAME; ?>">
 
         <p id="password_errors" class="loginreg_form_error error-text nodisplay"></p>
 
         <input id="password" type="password" class="loginreg_form_input"
+        maxlength="<?php echo LIMIT_PASSWORD; ?>"
         placeholder="<?php echo LOGINREG_PASSWORD; ?>">
 
         <a class="loginreg_form_submit btn-1 login" id="login_register">

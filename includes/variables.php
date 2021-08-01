@@ -7,6 +7,14 @@ defined("PAGE_TITLE") ? null : define("PAGE_TITLE", "Time Tracker / James Mellor
 // LOGIN / REGISTER
 defined("LOGINREG_CHANGE_LOGIN") ? null : define("LOGINREG_CHANGE_LOGIN", "Don't have an account? Register");
 defined("LOGINREG_CHANGE_REGISTER") ? null : define("LOGINREG_CHANGE_REGISTER", "Already have an account? Log in");
+defined("LOGINREG_ERROR_GENERAL") ? null : define("LOGINREG_ERROR_GENERAL", "Error creating user");
+defined("LOGINREG_ERROR_PASSWORD_EMPTY") ? null : define("LOGINREG_ERROR_PASSWORD_EMPTY", "Password cannot be empty");
+defined("LOGINREG_ERROR_PASSWORD_INCORRECT") ? null : define("LOGINREG_ERROR_PASSWORD_INCORRECT", "Incorrect password");
+defined("LOGINREG_ERROR_PASSWORD_LENGTH") ? null : define("LOGINREG_ERROR_PASSWORD_LENGTH", "Username must be no longer than" . LIMIT_PASSWORD . " characters");
+defined("LOGINREG_ERROR_USER_NOT_FOUND") ? null : define("LOGINREG_ERROR_USER_NOT_FOUND", "User doesn't exist");
+defined("LOGINREG_ERROR_USERNAME_EMPTY") ? null : define("LOGINREG_ERROR_USERNAME_EMPTY", "Username cannot be empty");
+defined("LOGINREG_ERROR_USERNAME_IN_USE") ? null : define("LOGINREG_ERROR_USERNAME_IN_USE", "Username already exists");
+defined("LOGINREG_ERROR_USERNAME_LENGTH") ? null : define("LOGINREG_ERROR_USERNAME_LENGTH", "Username must be no longer than" . LIMIT_USERNAME . " characters");
 defined("LOGINREG_LOGIN") ? null : define("LOGINREG_LOGIN", "Log In");
 defined("LOGINREG_PASSWORD") ? null : define("LOGINREG_PASSWORD", "Password");
 defined("LOGINREG_REGISTER") ? null : define("LOGINREG_REGISTER", "Register");

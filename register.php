@@ -9,14 +9,16 @@ if ($session->is_signed_in()) header("Location: index.php");
 
     <div class="loginreg_form" method="post">
 
-        <p id="username_errors" class="loginreg_form_error error-text nodisplay">some error</p>
+        <p id="username_errors" class="loginreg_form_error error-text nodisplay">&nbsp;</p>
 
         <input id="username" type="text" class="loginreg_form_input"
+        maxlength="<?php echo LIMIT_USERNAME; ?>"
         placeholder="<?php echo LOGINREG_USERNAME; ?>">
 
-        <p id="password_errors" class="loginreg_form_error error-text nodisplay">some error</p>
+        <p id="password_errors" class="loginreg_form_error error-text nodisplay">&nbsp;</p>
 
         <input id="password" type="password" class="loginreg_form_input"
+        maxlength="<?php echo LIMIT_PASSWORD; ?>"
         placeholder="<?php echo LOGINREG_PASSWORD; ?>">
 
         <a class="loginreg_form_submit btn-1 register" id="login_register">
