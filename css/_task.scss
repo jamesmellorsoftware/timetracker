@@ -1,0 +1,39 @@
+&_task {
+    border-bottom: 2px solid $color_lightblue;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    user-select: none;
+
+    &_controls {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        &_control {
+            cursor: pointer;
+
+            &_img {
+                height: 30px;
+                padding: 5px;
+                transition: all 0.3s;
+                width: 30px;
+
+                &:hover { background-color: $color_lightblue; }
+                &:active,
+                &:focus {
+                    background-color: darken($color_lightblue, 15%);
+                    transform: scale(0.8);
+                }
+            }
+        }
+    }
+
+    &_taskdesc {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+    }
+}

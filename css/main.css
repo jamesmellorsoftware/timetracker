@@ -178,6 +178,10 @@ input:active, input:focus {
   padding-right: 20px;
 }
 
+.mainapp_date_date:active, .mainapp_date_date:focus {
+  transform: scale(0.8);
+}
+
 .mainapp_date_select {
   font-size: 1.3rem;
   height: 100%;
@@ -225,13 +229,60 @@ input:active, input:focus {
 }
 
 .mainapp_newtask_text {
+  border-bottom: none !important;
   margin-left: 5px;
   margin-right: 5px;
   width: 80%;
 }
 
 .mainapp_tasks {
+  background-color: white;
+  border: 2px solid #add8e6;
   grid-column: 1 / -1;
   grid-row: 3 / 4;
+  margin-bottom: 5px;
+  overflow-y: scroll;
+}
+
+.mainapp_tasks_task {
+  border-bottom: 2px solid #add8e6;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  user-select: none;
+}
+
+.mainapp_tasks_task_controls {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.mainapp_tasks_task_controls_control {
+  cursor: pointer;
+}
+
+.mainapp_tasks_task_controls_control_img {
+  height: 30px;
+  padding: 5px;
+  transition: all 0.3s;
+  width: 30px;
+}
+
+.mainapp_tasks_task_controls_control_img:hover {
+  background-color: #add8e6;
+}
+
+.mainapp_tasks_task_controls_control_img:active, .mainapp_tasks_task_controls_control_img:focus {
+  background-color: #72bcd4;
+  transform: scale(0.8);
+}
+
+.mainapp_tasks_task_taskdesc {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 /*# sourceMappingURL=main.css.map */

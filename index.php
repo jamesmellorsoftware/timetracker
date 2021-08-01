@@ -28,20 +28,26 @@ require_once("includes/head.php");
     <section class="mainapp_tasks">
 
         <div class="mainapp_tasks_task">
-            <p class="mainapp_tasks_task_taskname">
-                <span class="mainapp_tasks_task_taskname_name">
+            <p class="mainapp_tasks_task_taskdesc">
+                <span class="mainapp_tasks_task_taskdesc_name">
                     Task Name
                 </span>
-                <span class="mainapp_tasks_task_taskname_duration">
+                <span class="mainapp_tasks_task_taskdesc_duration">
                     00:00:00
                 </span>
             </p>
             <div class="mainapp_tasks_task_controls">
-                <span class="mainapp_tasks_task_controls_stop">
-                    STOP
+                <span class="mainapp_tasks_task_controls_control
+                mainapp_tasks_task_controls_control_stop">
+                    <img class="mainapp_tasks_task_controls_control_img
+                    mainapp_tasks_task_controls_control_stop_img"
+                    src="img/stop.png" alt="stop">
                 </span>
-                <span class="mainapp_tasks_task_controls_delete">
-                    TRASH
+                <span class="mainapp_tasks_task_controls_control
+                mainapp_tasks_task_controls_control_trash">
+                    <img class="mainapp_tasks_task_controls_control_img
+                    mainapp_tasks_task_controls_control_trash_img"
+                    src="img/trash.png" alt="trash">
                 </span>
             </div>
         </div>
