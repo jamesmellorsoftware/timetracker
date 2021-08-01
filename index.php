@@ -44,23 +44,14 @@ require_once("includes/head.php");
                     TRASH
                 </span>
             </div>
-            <div class="mainapp_tasks_task_percentage">
-                BLUE 75% GREY
-            </div>
         </div>
 
     </section>
 
     <section class="mainapp_date">
-        <span class="mainapp_date_select btn-1 prevday">
-            &lt;
-        </span>
-        <span class="mainapp_date_date btn-1 today">
-            Today
-        </span>
-        <span class="mainapp_date_select btn-1 nextday">
-            &gt;
-        </span>
+        <span class="mainapp_date_select btn-1 prevday">&lt;</span>
+        <span class="mainapp_date_date btn-1 today">Today</span>
+        <span class="mainapp_date_select btn-1 nextday">&gt;</span>
     </section>
 
 </main>
