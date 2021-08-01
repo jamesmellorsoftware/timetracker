@@ -1,5 +1,7 @@
 <?php
 
+require_once("config.php");
+
 // HEAD
 defined("APP_NAME") ? null : define("APP_NAME", "Time Tracker");
 defined("PAGE_TITLE") ? null : define("PAGE_TITLE", "Time Tracker / James Mellor");
