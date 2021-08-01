@@ -48,7 +48,7 @@ h2 {
 input {
     border: none;
     border-bottom: 4px solid $color_lightblue;
-    height: 2rem;
+    height: $input_height;
     transition: all 0.1s;
     &:active,
     &:focus {
@@ -58,10 +58,13 @@ input {
 }
 
 .btn-1 {
+    align-items: center;
     background-color: $color_lightblue;
     border: none !important;
     cursor: pointer;
+    display: flex;
     font-style: italic;
+    justify-content: center;
     margin: 0;
     text-transform: uppercase;
     transition: all 0.3s;

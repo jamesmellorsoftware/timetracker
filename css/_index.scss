@@ -2,12 +2,31 @@
     display: grid;
     height: 100%;
     grid-template-columns: 1fr;
-    grid-template-rows: 30px 50px 1fr 1fr;
+    grid-template-rows: 30px 50px 1fr 30px;
     width: 100%;
 
     &_date {
+        align-items: center;
+        background-color: $color_lightblue;
+        display: flex;
         grid-column: 1 / -1;
         grid-row: 4 / 5;
+        justify-content: space-between;
+
+        &_date {
+            height: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        &_select {
+            font-size: 1.3rem;
+            height: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+            &:active,
+            &:focus { transform: scale(0.8); }
+        }
     }
 
     &_header {
@@ -19,11 +38,9 @@
         justify-content: space-between;
 
         &_logout {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
             height: 100%;
-            justify-content: center;
+            &:active,
+            &:focus { transform: scale(0.8); }
         }
     }
 
@@ -33,6 +50,20 @@
         grid-column: 1 / -1;
         grid-row: 2 / 3;
         justify-content: space-between;
+
+        &_button {
+            height: $input_height;
+            margin-right: 5px;
+            width: 30%;
+            &:active,
+            &:focus { transform: scale(0.8); }
+        }
+
+        &_text {
+            margin-left: 5px;
+            margin-right: 5px;
+            width: 80%;
+        }
     }
 
     &_tasks {

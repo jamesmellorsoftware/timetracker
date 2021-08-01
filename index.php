@@ -20,7 +20,7 @@ require_once("includes/head.php");
     <section class="mainapp_newtask">
         <input type="text" class="mainapp_newtask_text"
         placeholder="<?php echo MAINAPP_TEXT; ?>">
-        <a class="mainapp_newtask_button">
+        <a class="mainapp_newtask_button btn-1">
             <?php echo MAINAPP_BUTTON; ?>
         </a>
     </section>
@@ -52,13 +52,13 @@ require_once("includes/head.php");
     </section>
 
     <section class="mainapp_date">
-        <span class="mainapp_date_select prevday">
+        <span class="mainapp_date_select btn-1 prevday">
             &lt;
         </span>
-        <span class="mainapp_date_select today">
+        <span class="mainapp_date_date btn-1 today">
             Today
         </span>
-        <span class="mainapp_date_select nextday">
+        <span class="mainapp_date_select btn-1 nextday">
             &gt;
         </span>
     </section>

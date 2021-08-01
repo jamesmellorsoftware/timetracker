@@ -56,10 +56,13 @@ input:active, input:focus {
 }
 
 .btn-1 {
+  align-items: center;
   background-color: #add8e6;
   border: none !important;
   cursor: pointer;
+  display: flex;
   font-style: italic;
+  justify-content: center;
   margin: 0;
   text-transform: uppercase;
   transition: all 0.3s;
@@ -156,13 +159,34 @@ input:active, input:focus {
   display: grid;
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: 30px 50px 1fr 1fr;
+  grid-template-rows: 30px 50px 1fr 30px;
   width: 100%;
 }
 
 .mainapp_date {
+  align-items: center;
+  background-color: #add8e6;
+  display: flex;
   grid-column: 1 / -1;
   grid-row: 4 / 5;
+  justify-content: space-between;
+}
+
+.mainapp_date_date {
+  height: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.mainapp_date_select {
+  font-size: 1.3rem;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.mainapp_date_select:active, .mainapp_date_select:focus {
+  transform: scale(0.8);
 }
 
 .mainapp_header {
@@ -175,11 +199,11 @@ input:active, input:focus {
 }
 
 .mainapp_header_logout {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
   height: 100%;
-  justify-content: center;
+}
+
+.mainapp_header_logout:active, .mainapp_header_logout:focus {
+  transform: scale(0.8);
 }
 
 .mainapp_newtask {
@@ -188,6 +212,22 @@ input:active, input:focus {
   grid-column: 1 / -1;
   grid-row: 2 / 3;
   justify-content: space-between;
+}
+
+.mainapp_newtask_button {
+  height: 2rem;
+  margin-right: 5px;
+  width: 30%;
+}
+
+.mainapp_newtask_button:active, .mainapp_newtask_button:focus {
+  transform: scale(0.8);
+}
+
+.mainapp_newtask_text {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 80%;
 }
 
 .mainapp_tasks {
