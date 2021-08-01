@@ -2,8 +2,12 @@
     display: grid;
     height: 100%;
     grid-template-columns: 1fr;
-    grid-template-rows: 35% 30% 35%;
+    grid-template-rows: 30% 40% 30%;
     width: 100%;
+
+    @media screen and (max-height: $mobile_height) {
+        grid-template-rows: 20% 60% 20%;
+    }
 
     &_footer {
         align-items: center;
@@ -15,10 +19,18 @@
         &_logo {
             color: rgb(255,255,255);
             cursor: default;
+            display: none;
             font-style: italic;
             text-align: center;
             text-shadow: 5px 2px black;
             user-select: none;
+            &-normalheight {
+                @media screen and (min-height: $mobile_height) { display: block; }
+            }
+            &-smallheight {
+                font-size: 0.7rem;
+                @media screen and (max-height: $mobile_height) { display: block; }
+            }
         }
     }
 

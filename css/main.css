@@ -95,8 +95,14 @@ input:active, input:focus {
   display: grid;
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: 35% 30% 35%;
+  grid-template-rows: 30% 40% 30%;
   width: 100%;
+}
+
+@media screen and (max-height: 540px) {
+  .loginreg {
+    grid-template-rows: 20% 60% 20%;
+  }
 }
 
 .loginreg_footer {
@@ -110,10 +116,27 @@ input:active, input:focus {
 .loginreg_footer_logo {
   color: white;
   cursor: default;
+  display: none;
   font-style: italic;
   text-align: center;
   text-shadow: 5px 2px black;
   user-select: none;
+}
+
+@media screen and (min-height: 540px) {
+  .loginreg_footer_logo-normalheight {
+    display: block;
+  }
+}
+
+.loginreg_footer_logo-smallheight {
+  font-size: 0.7rem;
+}
+
+@media screen and (max-height: 540px) {
+  .loginreg_footer_logo-smallheight {
+    display: block;
+  }
 }
 
 .loginreg_form {

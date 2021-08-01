@@ -32,12 +32,16 @@ if ($session->is_signed_in()) header("Location: index.php");
     </div>
 
     <footer class="loginreg_footer">
-<pre class="loginreg_footer_logo">
+<pre class="loginreg_footer_logo loginreg_footer_logo-normalheight">
 ░░█ ▄▀█ █▀▄▀█ █▀▀ █▀
 █▄█ █▀█ █░▀░█ ██▄ ▄█
 
 █▀▄▀█ █▀▀ █░░ █░░ █▀█ █▀█
 █░▀░█ ██▄ █▄▄ █▄▄ █▄█ █▀▄
+</pre>
+<pre class="loginreg_footer_logo loginreg_footer_logo-smallheight">
+░░█ ▄▀█ █▀▄▀█ █▀▀ █▀   █▀▄▀█ █▀▀ █░░ █░░ █▀█ █▀█
+█▄█ █▀█ █░▀░█ ██▄ ▄█   █░▀░█ ██▄ █▄▄ █▄▄ █▄█ █▀▄
 </pre>
     </footer>
 
