@@ -163,6 +163,12 @@ input:active, input:focus {
   width: 100%;
 }
 
+@media screen and (min-width: 800px) {
+  .mainapp {
+    grid-template-columns: 20% 1fr 20%;
+  }
+}
+
 .mainapp_date {
   align-items: center;
   background-color: #add8e6;
@@ -170,6 +176,12 @@ input:active, input:focus {
   grid-column: 1 / -1;
   grid-row: 4 / 5;
   justify-content: space-between;
+}
+
+@media screen and (min-width: 800px) {
+  .mainapp_date {
+    grid-column: 2 / 3;
+  }
 }
 
 .mainapp_date_date {
@@ -202,8 +214,16 @@ input:active, input:focus {
   justify-content: space-between;
 }
 
+@media screen and (min-width: 800px) {
+  .mainapp_header {
+    grid-column: 2 / 3;
+  }
+}
+
 .mainapp_header_logout {
   height: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .mainapp_header_logout:active, .mainapp_header_logout:focus {
@@ -218,6 +238,12 @@ input:active, input:focus {
   justify-content: space-between;
 }
 
+@media screen and (min-width: 800px) {
+  .mainapp_newtask {
+    grid-column: 2 / 3;
+  }
+}
+
 .mainapp_newtask_button {
   height: 2rem;
   margin-right: 5px;
@@ -230,6 +256,7 @@ input:active, input:focus {
 
 .mainapp_newtask_text {
   border-bottom: none !important;
+  font-size: 1.1rem;
   margin-left: 5px;
   margin-right: 5px;
   width: 80%;
@@ -242,6 +269,12 @@ input:active, input:focus {
   grid-row: 3 / 4;
   margin-bottom: 5px;
   overflow-y: scroll;
+}
+
+@media screen and (min-width: 800px) {
+  .mainapp_tasks {
+    grid-column: 2 / 3;
+  }
 }
 
 .mainapp_tasks_task {
