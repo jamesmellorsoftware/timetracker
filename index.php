@@ -1,9 +1,6 @@
 <?php
-
 require_once("includes/head.php");
-
-// Redirect to log in page if not logged in
-
+if (!$session->is_signed_in()) header("Location: login.php");
 ?>
 
 <main class="mainapp">

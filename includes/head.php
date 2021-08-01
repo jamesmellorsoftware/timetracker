@@ -1,4 +1,7 @@
-<?php require_once("includes/variables.php"); ?>
+<?php
+require_once("includes/variables.php");
+require_once("includes/config.php");
+?>
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +15,7 @@
 
     <link rel="stylesheet" href="css/main.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/main.js"></script>
 </head>
 

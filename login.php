@@ -1,9 +1,6 @@
 <?php
-
 require_once("includes/head.php");
-
-// if user is logged in, redirect to index.php
-
+if ($session->is_signed_in()) header("Location: index.php");
 ?>
 
 <main class="loginreg">
