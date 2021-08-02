@@ -27,4 +27,9 @@ defined("MAINAPP_BUTTON") ? null : define("MAINAPP_BUTTON", "Start");
 defined("MAINAPP_LOGOUT") ? null : define("MAINAPP_LOGOUT", "Log Out");
 defined("MAINAPP_TEXT") ? null : define("MAINAPP_TEXT", "Task Name");
 
+// TIMERS
+defined("TIMER_ERROR_EMPTY") ? null : define("TIMER_ERROR_EMPTY", "Please give your task a name");
+defined("TIMER_ERROR_GENERAL") ? null : define("TIMER_ERROR_GENERAL", "Error creating timer");
+defined("TIMER_ERROR_TOO_LONG") ? null : define("TIMER_ERROR_TOO_LONG", "Task name must be less than " . LIMIT_TIMER_NAME . " characters");
+
 ?>

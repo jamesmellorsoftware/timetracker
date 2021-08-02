@@ -15,15 +15,23 @@ if (!$session->is_signed_in()) header("Location: login.php");
     </header>
 
     <section class="mainapp_newtask">
+
         <input type="text" class="mainapp_newtask_text"
+        maxlength="<?php echo LIMIT_TIMER_NAME; ?>"
         placeholder="<?php echo MAINAPP_TEXT; ?>">
+
         <a class="mainapp_newtask_button btn-1">
             <?php echo MAINAPP_BUTTON; ?>
         </a>
+
     </section>
 
     <section class="mainapp_tasks">
 
+        <div class="mainapp_tasks_notasks">
+            No tasks yet.
+        </div>
+<!--
         <div class="mainapp_tasks_task">
             <p class="mainapp_tasks_task_taskdesc">
                 <span class="mainapp_tasks_task_taskdesc_name">
@@ -48,7 +56,7 @@ if (!$session->is_signed_in()) header("Location: login.php");
                 </span>
             </div>
         </div>
-
+-->
     </section>
 
     <section class="mainapp_date">

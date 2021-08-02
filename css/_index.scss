@@ -87,5 +87,14 @@
         @media screen and (min-width: $mobile_width) { grid-column: 2 / 3; }
 
         @import "_task";
+
+        &_notasks {
+            align-items: center;
+            display: flex;
+            font-style: italic;
+            height: 100%;
+            justify-content: center;
+            text-transform: uppercase;
+        }
     }
 }

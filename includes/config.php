@@ -16,5 +16,6 @@ require_once('user.php');
 defined("LIMIT_PASSWORD") ? null : define("LIMIT_PASSWORD", 30);
 defined("LIMIT_TASKNAME") ? null : define("LIMIT_TASKNAME", 30);
 defined("LIMIT_USERNAME") ? null : define("LIMIT_USERNAME", 30);
+defined("LIMIT_TIMER_NAME") ? null : define("LIMIT_TIMER_NAME", 30);
 
 ?>
