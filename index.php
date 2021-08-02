@@ -26,19 +26,19 @@ if (!$session->is_signed_in()) header("Location: login.php");
 
     </section>
 
-    <section class="mainapp_tasks">
-
+    <section id="task_container" class="mainapp_tasks">
+<!--
         <div class="mainapp_tasks_notasks">
             No tasks yet.
         </div>
-<!--
-        <div class="mainapp_tasks_task">
+-->
+        <div id="task_template" class="mainapp_tasks_task">
             <p class="mainapp_tasks_task_taskdesc">
-                <span class="mainapp_tasks_task_taskdesc_name">
-                    Task Name
-                </span>
-                <span class="mainapp_tasks_task_taskdesc_duration">
-                    00:00:00
+                <span class="mainapp_tasks_task_taskdesc_name task_name">Task Name</span>
+                <span class="mainapp_tasks_task_taskdesc_duration task_duration">
+                    <span class="mainapp_tasks_task_taskdesc_duration_hours task_hours">00</span>:
+                    <span class="mainapp_tasks_task_taskdesc_duration_mins task_mins">00</span>:
+                    <span class="mainapp_tasks_task_taskdesc_duration_secs task_secs">00</span>
                 </span>
             </p>
             <div class="mainapp_tasks_task_controls">
@@ -56,7 +56,7 @@ if (!$session->is_signed_in()) header("Location: login.php");
                 </span>
             </div>
         </div>
--->
+
     </section>
 
     <section class="mainapp_date">

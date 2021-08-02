@@ -16,7 +16,11 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
 
             $new_timer->duration_secs = 0;
             $new_timer->active = 1;
-            echo ($new_timer->save()) ? true : json_encode($new_timer->errors);
+
+            echo ($new_timer->save()) ?
+                json_encode(["new_timer" => 1, "new_timer_name" => $new_timer->name])
+                :
+                json_encode($new_timer->errors);
 
         } else {
             // if (!$new_timer->active()) {
