@@ -20,6 +20,6 @@ defined("LIMIT_USERNAME") ? null : define("LIMIT_USERNAME", 30);
 defined("LIMIT_TIMER_NAME") ? null : define("LIMIT_TIMER_NAME", 30);
 
 // Default formats
-defined("TIMER_DATE_FORMAT") ? null : define("TIMER_DATE_FORMAT", "d/m/y");
+defined("TIMER_DATE_FORMAT") ? null : define("TIMER_DATE_FORMAT", "y-m-d");
 
 ?>

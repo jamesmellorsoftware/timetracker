@@ -20,6 +20,27 @@ class Timer extends db_objects {
         return true;
     }
 
+    public function exists() {
+        $sql = "SELECT * FROM " . Timer::get_table_name() . " ";
+        $sql.= "WHERE name = '$this->name' ";
+        $sql.= "AND date = '$this->date' ";
+        $sql.= "AND author_id = '$this->author_id' ";
+        $sql.= "LIMIT 1 ";
+        $result_set = self::execute_query($sql);
+        return !empty($result_set) ? true : false;
+    }
+
+    public function active() {
+        $sql = "SELECT * FROM " . Timer::get_table_name() . " ";
+        $sql.= "WHERE name = '$this->name' ";
+        $sql.= "AND date = '$this->date' ";
+        $sql.= "AND author_id = '$this->author_id' ";
+        $sql.= "AND active = 1 ";
+        $sql.= "LIMIT 1 ";
+        $result_set = self::execute_query($sql);
+        return !empty($result_set) ? true : false;
+    }
+
     public function verify_new_timer() {
         // Check empty inputs
         if (empty($this->name))      $this->errors['timer'] = TIMER_ERROR_EMPTY;

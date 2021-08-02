@@ -12,11 +12,20 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
     if (!$new_timer->verify_new_timer()) {
         echo json_encode($new_timer->errors);
     } else {
-        echo true;
-        // Make sure EVERYTHING corresponds to today's date
-        // If timer doesn't exist and name validates, create it
-        // If timer exists and isn't running, restart it
-        // If timer exists and is running, don't do anything, return a signal to highlight the timer
+        if (!$new_timer->exists()) {
+
+            $new_timer->duration_secs = 0;
+            $new_timer->active = 1;
+            echo ($new_timer->save()) ? true : json_encode($new_timer->errors);
+
+        } else {
+            // if (!$new_timer->active()) {
+            //     // If timer exists and isn't running, restart it
+            // } else {
+            //     // If timer exists and is running, don't do anything, return a signal to highlight the timer
+            // }
+        }
+        
     }
 }
 
