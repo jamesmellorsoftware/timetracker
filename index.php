@@ -43,6 +43,7 @@ if (!$session->is_signed_in()) header("Location: login.php");
                 </span>
             </p>
             <div class="mainapp_tasks_task_controls">
+                <input type="hidden" class="task_name" value="">
                 <span class="mainapp_tasks_task_controls_control
                 mainapp_tasks_task_controls_control_stop task_stop">
                     <img class="mainapp_tasks_task_controls_control_img

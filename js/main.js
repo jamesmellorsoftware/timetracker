@@ -19,6 +19,7 @@ $(document).ready(function() {
                     var new_timer = $("#task_template").clone();
                     new_timer.attr("id", response.new_timer_name);
                     new_timer.find(".task_name").html(response.new_timer_name);
+                    new_timer.find("input.task_name").val(response.new_timer_name);
                     $("#task_container").append(new_timer);
                     startTimer(new_timer);
                 }
@@ -45,9 +46,7 @@ $(document).ready(function() {
     // ===== STOP TASK ================================================================== //
     $(document).on("click", '.task_stop', function(){
 
-        var timer_name = $(this).parent(".task_name").html();
-
-        console.log(timer_name);
+        var timer_name = $(this).siblings(".task_name").val();
 
         $.ajax({
             type: 'post',
