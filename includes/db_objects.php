@@ -24,6 +24,14 @@ class db_objects {
         return $result_object_set;
     }
 
+    public static function retrieve_object_from_db($query_results){
+        // Loop through assoc array from query results and instantiate object for every row
+        $result_object_set = [];
+        while ($row = $query_results->fetch_assoc()) $result_object_set = static::retrieved_row_to_object_instance($row);
+
+        return $result_object_set;
+    }
+
     public static function retrieved_row_to_object_instance($row) {
         // Creates instance of class called from mysqli_query() results
 

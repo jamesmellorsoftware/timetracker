@@ -18,12 +18,28 @@ class User extends db_objects {
         return true;
     }
 
+    // public static function retrieve($username) {
+    //     $sql = "SELECT * FROM " . User::get_table_name() . " ";
+    //     $sql.= "WHERE username = '$username' ";
+    //     $sql.= "LIMIT 1 ";
+    //     $result_set = self::execute_query($sql);
+    //     return !empty($result_set) ? array_shift($result_set) : false;
+    // }
     public static function retrieve($username) {
+        global $db;
+
         $sql = "SELECT * FROM " . User::get_table_name() . " ";
-        $sql.= "WHERE username = '$username' ";
+        $sql.= "WHERE username = ? ";
         $sql.= "LIMIT 1 ";
-        $result_set = self::execute_query($sql);
-        return !empty($result_set) ? array_shift($result_set) : false;
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $results = $stmt->get_result();
+        $result_set = self::retrieve_object_from_db($results);
+
+        // $result_set = self::execute_query($sql);
+        return !empty($result_set) ? $result_set : false;
     }
 
     public function exists() {
