@@ -1,9 +1,6 @@
 <?php
-$page = basename($_SERVER['PHP_SELF']);
-
 $register = ($page === "register.php") ? true : false;
 $login    = ($page === "login.php")    ? true : false;
-
 ?>
 
 <main class="loginreg">

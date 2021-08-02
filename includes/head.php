@@ -1,6 +1,7 @@
 <?php
 require_once("includes/variables.php");
 require_once("includes/config.php");
+$page = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +17,15 @@ require_once("includes/config.php");
     <link rel="stylesheet" href="css/main.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+
+    <?php if ($page === "register.php" || $page === "login.php") { ?>
+        <script src="js/loginreg.js"></script>
+    <?php } ?>
+    
+    <?php if ($page === "register.php" || $page === "login.php") { ?>
+        <script src="js/main.js"></script>
+    <?php } ?>
+
 </head>
 
 <body>
