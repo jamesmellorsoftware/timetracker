@@ -10,22 +10,20 @@ class User extends db_objects {
     public $password;
 
     public function save(){
-        if (!$this->create()) {
-            $this->errors["username"] = LOGINREG_ERROR_GENERAL;
-            $this->errors["password"] = LOGINREG_ERROR_GENERAL;
-            return false;
-        }
+        global $db;
+
+        $sql = "INSERT INTO " . User::get_table_name() . " (username, password) VALUES (?, ?)";
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param("ss", $this->username, $this->password);
+        $stmt->execute();
+        
+        $this->id = $db->inserted_id();
+
         return true;
     }
 
-    // public static function retrieve($username) {
-    //     $sql = "SELECT * FROM " . User::get_table_name() . " ";
-    //     $sql.= "WHERE username = '$username' ";
-    //     $sql.= "LIMIT 1 ";
-    //     $result_set = self::execute_query($sql);
-    //     return !empty($result_set) ? array_shift($result_set) : false;
-    // }
-    public static function retrieve($username) {
+    public static function get($username) {
         global $db;
 
         $sql = "SELECT * FROM " . User::get_table_name() . " ";
@@ -38,15 +36,16 @@ class User extends db_objects {
         $results = $stmt->get_result();
         $result_set = self::retrieve_object_from_db($results);
 
-        // $result_set = self::execute_query($sql);
+        return $result_set;
+    }
+
+    public static function retrieve($username) {
+        $result_set = User::get($username);
         return !empty($result_set) ? $result_set : false;
     }
 
     public function exists() {
-        $sql = "SELECT * FROM " . User::get_table_name() . " ";
-        $sql.= "WHERE username = '$this->username' ";
-        $sql.= "LIMIT 1 ";
-        $result_set = self::execute_query($sql);
+        $result_set = User::get($this->username);
         return !empty($result_set) ? true : false;
     }
 
