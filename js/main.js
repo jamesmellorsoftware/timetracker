@@ -3,9 +3,9 @@ $(document).ready(function() {
     // ===== NEW TASK =================================================================== //
     $("#task_submit").on("click", function(){
 
-        // If a timer is already running, return false;
-
         var timer_name = $("#task").val();
+
+        if ($("#task_submit").hasClass("btn-1_unclickable")) return false;
 
         $.ajax({
             type: 'post',
@@ -23,12 +23,12 @@ $(document).ready(function() {
                     new_timer.find(".task_name").html(response.new_timer_name);
                     new_timer.find("input.task_name").val(response.new_timer_name);
                     $("#task_container").append(new_timer);
-                    startTimer(new_timer);
                     $("#task_submit").addClass("btn-1_unclickable");
                     $("#task").val("");
+                    startTimer(new_timer);
                 }
 
-                // If task exists, restart the timer
+                // If task exists, restart its timer
                 if (response.timer_exists) {
                     var existing_timer = $("#"+response.timer_name);
                     existing_timer.css("background-color", "green");
@@ -61,7 +61,7 @@ $(document).ready(function() {
                 "timer_duration": timer_duration
             },
             success: function(response) {
-                // stop timer
+                stopTimer();
                 $("#task_submit").removeClass("btn-1_unclickable");
             },
             error: function(error) {
@@ -74,14 +74,41 @@ $(document).ready(function() {
     // ================================================================================== //
 
 
-    // Start timer
+    // ===== DELETE TASK ================================================================ //
+    $(document).on("click", '.task_delete', function(){
+
+        var task = $(this);
+        var timer_name = task.siblings(".task_name").val();
+
+        $.ajax({
+            type: 'post',
+            url: 'includes/controllers/mainapp_controller.php',
+            dataType: 'json',
+            data: {
+                "delete_timer": true,
+                "timer_name": timer_name
+            },
+            success: function(response) {
+                // stopTimer();
+                task.closest(".task_row").remove();
+            },
+            error: function(error) {
+                console.debug('AJAX Error:');
+                console.debug(error);
+            }
+        });
+
+    });
+    // ================================================================================== //
+
+
     function startTimer(timer) {
         var timer_hours = timer.find(".task_hours");
         var timer_mins  = timer.find(".task_mins");
         var timer_secs  = timer.find(".task_secs");
 
         var totalSeconds = parseInt(timer.find(".task_duration_total").val());
-        setInterval(setTime, 1000);
+        var taskTimer = setInterval(setTime, 1000);
 
         function setTime() {
             ++totalSeconds;
@@ -90,6 +117,11 @@ $(document).ready(function() {
             timer_mins.html(addZeros(parseInt(totalSeconds / 60)));
             timer_hours.html(addZeros(parseInt(totalSeconds / (60 * 60))));
         }
+    }
+
+    
+    function stopTimer() {
+        clearInterval(taskTimer);
     }
 
 

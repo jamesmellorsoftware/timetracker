@@ -57,4 +57,21 @@ if (isset($_POST['stop_timer']) && $_POST['stop_timer']) {
     }
 }
 
+// Delete a timer
+if (isset($_POST['delete_timer']) && $_POST['delete_timer']) {
+    
+    $existing_timer = new Timer;
+
+    $existing_timer->name          = trim($_POST['timer_name']);
+    $existing_timer->date          = date(TIMER_DATE_FORMAT);
+    $existing_timer->author_id     = $session->user_id;
+
+    if ($existing_timer->exists()) {
+        echo ($existing_timer->delete());
+    } else {
+        // User is trying to delete a timer that doesn't exist or doesn't belong to them
+        echo false;
+    }
+}
+
 ?>

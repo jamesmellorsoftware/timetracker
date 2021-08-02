@@ -49,6 +49,23 @@ class Timer extends db_objects {
         return $stmt->affected_rows ? true : false;
     }
 
+    public function delete(){
+        
+        if (!$this) return false;
+
+        global $db;
+
+        $sql = "DELETE FROM " . Timer::get_table_name() . " ";
+        $sql.= "WHERE ";
+        $sql.= "name = ? AND date = ? AND author_id = ? ";
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param('ssi', $this->name, $this->date, $this->author_id);
+        $stmt->execute();
+
+        return $stmt->affected_rows ? true : false;
+    }
+
     public function exists() {
         if (!$this) return false;
 
