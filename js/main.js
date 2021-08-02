@@ -3,6 +3,8 @@ $(document).ready(function() {
     // ===== NEW TASK =================================================================== //
     $("#task_submit").on("click", function(){
 
+        // If a timer is already running, return false;
+
         var timer_name = $("#task").val();
 
         $.ajax({
@@ -22,16 +24,16 @@ $(document).ready(function() {
                     new_timer.find("input.task_name").val(response.new_timer_name);
                     $("#task_container").append(new_timer);
                     startTimer(new_timer);
+                    $("#task_submit").addClass("btn-1_unclickable");
+                    $("#task").val("");
                 }
 
-                // If task exists, either restart the timer or flash it
+                // If task exists, restart the timer
                 if (response.timer_exists) {
                     var existing_timer = $("#"+response.timer_name);
                     existing_timer.css("background-color", "green");
                     if (response.timer_restart) startTimer(existing_timer);
                 }
-                    
-                console.log(response);
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -59,7 +61,8 @@ $(document).ready(function() {
                 "timer_duration": timer_duration
             },
             success: function(response) {
-                console.log(response);
+                // stop timer
+                $("#task_submit").removeClass("btn-1_unclickable");
             },
             error: function(error) {
                 console.debug('AJAX Error:');

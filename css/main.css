@@ -75,6 +75,17 @@ input:active, input:focus {
   color: white;
 }
 
+.btn-1_unclickable {
+  background-color: #838383;
+  color: #a9a9a9;
+  cursor: not-allowed;
+}
+
+.btn-1_unclickable:hover {
+  background-color: #767676;
+  color: #a9a9a9;
+}
+
 .error-text {
   color: #ff0000;
   display: block;

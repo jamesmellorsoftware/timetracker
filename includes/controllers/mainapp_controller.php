@@ -5,6 +5,8 @@ require_once("../variables.php");
 
 // Start a new timer or restart an existing one
 if (isset($_POST['start_timer']) && $_POST['start_timer']) {
+
+    // If a timer is active, return false
     
     $new_timer = new Timer;
 
@@ -29,7 +31,7 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
             if (!$new_timer->active()) {
                 json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name, 'timer_restart' => 1]);
             } else {
-                json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name]);
+                echo false;
             }
         }
     }

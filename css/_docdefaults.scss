@@ -76,6 +76,17 @@ input {
         background-color: darken($color_lightblue, 20%);
         color: rgb(255,255,255);
     }
+
+    &_unclickable {
+        background-color: darken($color_background, 15%);
+        color: $color_background;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: darken($color_background, 20%);
+            color: $color_background;
+        }
+    }
 }
 
 .error-text {
