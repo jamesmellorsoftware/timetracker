@@ -23,11 +23,11 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
                 json_encode($new_timer->errors);
 
         } else {
-            // if (!$new_timer->active()) {
-            //     // If timer exists and isn't running, restart it
-            // } else {
-            //     // If timer exists and is running, don't do anything, return a signal to highlight the timer
-            // }
+            if (!$new_timer->active()) {
+                json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name, 'timer_restart' => 1]);
+            } else {
+                json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name]);
+            }
         }
         
     }

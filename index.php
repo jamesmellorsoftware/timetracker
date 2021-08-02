@@ -33,23 +33,24 @@ if (!$session->is_signed_in()) header("Location: login.php");
         </div>
 -->
         <div id="task_template" class="mainapp_tasks_task">
+            <input type="hidden" class="task_duration_total" value="0">
             <p class="mainapp_tasks_task_taskdesc">
                 <span class="mainapp_tasks_task_taskdesc_name task_name">Task Name</span>
                 <span class="mainapp_tasks_task_taskdesc_duration task_duration">
-                    <span class="mainapp_tasks_task_taskdesc_duration_hours task_hours">00</span>:
-                    <span class="mainapp_tasks_task_taskdesc_duration_mins task_mins">00</span>:
+                    <span class="mainapp_tasks_task_taskdesc_duration_hours task_hours">00</span>
+                    <span class="mainapp_tasks_task_taskdesc_duration_mins task_mins">00</span>
                     <span class="mainapp_tasks_task_taskdesc_duration_secs task_secs">00</span>
                 </span>
             </p>
             <div class="mainapp_tasks_task_controls">
                 <span class="mainapp_tasks_task_controls_control
-                mainapp_tasks_task_controls_control_stop">
+                mainapp_tasks_task_controls_control_stop task_stop">
                     <img class="mainapp_tasks_task_controls_control_img
                     mainapp_tasks_task_controls_control_stop_img"
                     src="img/stop.png" alt="stop">
                 </span>
                 <span class="mainapp_tasks_task_controls_control
-                mainapp_tasks_task_controls_control_trash">
+                mainapp_tasks_task_controls_control_trash task_delete">
                     <img class="mainapp_tasks_task_controls_control_img
                     mainapp_tasks_task_controls_control_trash_img"
                     src="img/trash.png" alt="trash">

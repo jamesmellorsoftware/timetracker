@@ -359,6 +359,10 @@ input:active, input:focus {
   padding-left: 5px;
 }
 
+.mainapp_tasks_task_taskdesc_duration_hours::after, .mainapp_tasks_task_taskdesc_duration_mins::after {
+  content: " :";
+}
+
 .mainapp_tasks_notasks {
   align-items: center;
   display: flex;
