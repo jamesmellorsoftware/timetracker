@@ -22,7 +22,7 @@ $page = basename($_SERVER['PHP_SELF']);
         <script src="js/loginreg.js"></script>
     <?php } ?>
     
-    <?php if ($page === "register.php" || $page === "login.php") { ?>
+    <?php if ($page == "index.php") { ?>
         <script src="js/main.js"></script>
     <?php } ?>
 

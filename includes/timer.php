@@ -21,20 +21,18 @@ class Timer extends db_objects {
     }
 
     public function verify_new_timer() {
+        // Check empty inputs
+        if (empty($this->name))      $this->errors['timer'] = TIMER_ERROR_EMPTY;
+        if (empty($this->author_id)) $this->errors['timer'] = TIMER_ERROR_NO_AUTHOR;
+        if (empty($this->date))      $this->errors['timer']  = TIMER_ERROR_NO_DATE;
 
-        if (empty($this->name)) $this->errors['timer'] = TIMER_ERROR_EMPTY;
-        
+        if ($this->date != date(TIMER_DATE_FORMAT)) $this->errors['timer'] = TIMER_ERROR_WRONG_DATE;
+
         if (strlen($this->name) > LIMIT_TIMER_NAME) $this->errors['timer'] = TIMER_ERROR_TOO_LONG;
 
         if (!empty($this->errors)) return false;
 
-        // If timer already exists for today
-        // - restart the timer if it is paused
-        // - flash the timer running if it is running
-        // if ($this->exists()) $this->errors['username'] = LOGINREG_ERROR_USERNAME_IN_USE;
-
         return true;
-
     }
 
 } // end of class Timer

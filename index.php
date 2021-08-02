@@ -16,11 +16,11 @@ if (!$session->is_signed_in()) header("Location: login.php");
 
     <section class="mainapp_newtask">
 
-        <input type="text" class="mainapp_newtask_text"
+        <input id="task" type="text" class="mainapp_newtask_text"
         maxlength="<?php echo LIMIT_TIMER_NAME; ?>"
         placeholder="<?php echo MAINAPP_TEXT; ?>">
 
-        <a class="mainapp_newtask_button btn-1">
+        <a id="task_submit" class="mainapp_newtask_button btn-1">
             <?php echo MAINAPP_BUTTON; ?>
         </a>
 
