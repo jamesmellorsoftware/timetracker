@@ -20,6 +20,29 @@ class Timer extends db_objects {
         return true;
     }
 
+    public function stop(){
+        
+        if (!$this) return false;
+
+        global $db;
+
+        $sql = "UPDATE " . Timer::get_table_name() . " ";
+        $sql.= "SET ";
+        $sql.= "active = 0, ";
+        $sql.= "duration_secs = ? ";
+        $sql.= "WHERE ";
+        $sql.= "active = 1 AND ";
+        $sql.= "name = ? AND ";
+        $sql.= "date = ? AND ";
+        $sql.= "author_id = ? ";
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param('issi', $this->duration_secs, $this->name, $this->date, $this->author_id);
+        $stmt->execute();
+
+        return $stmt->affected_rows ? true : false;
+    }
+
     public function exists() {
         $sql = "SELECT * FROM " . Timer::get_table_name() . " ";
         $sql.= "WHERE name = '$this->name' ";

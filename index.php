@@ -33,7 +33,6 @@ if (!$session->is_signed_in()) header("Location: login.php");
         </div>
 -->
         <div id="task_template" class="mainapp_tasks_task">
-            <input type="hidden" class="task_duration_total" value="0">
             <p class="mainapp_tasks_task_taskdesc">
                 <span class="mainapp_tasks_task_taskdesc_name task_name">Task Name</span>
                 <span class="mainapp_tasks_task_taskdesc_duration task_duration">
@@ -44,6 +43,7 @@ if (!$session->is_signed_in()) header("Location: login.php");
             </p>
             <div class="mainapp_tasks_task_controls">
                 <input type="hidden" class="task_name" value="">
+                <input type="hidden" class="task_duration_total" value="0">
                 <span class="mainapp_tasks_task_controls_control
                 mainapp_tasks_task_controls_control_stop task_stop">
                     <img class="mainapp_tasks_task_controls_control_img

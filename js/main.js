@@ -47,6 +47,7 @@ $(document).ready(function() {
     $(document).on("click", '.task_stop', function(){
 
         var timer_name = $(this).siblings(".task_name").val();
+        var timer_duration = $(this).siblings(".task_duration_total").attr("value");
 
         $.ajax({
             type: 'post',
@@ -54,7 +55,8 @@ $(document).ready(function() {
             dataType: 'json',
             data: {
                 "stop_timer": true,
-                "timer_name": timer_name
+                "timer_name": timer_name,
+                "timer_duration": timer_duration
             },
             success: function(response) {
                 console.log(response);

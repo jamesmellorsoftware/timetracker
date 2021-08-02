@@ -3,10 +3,13 @@
 require_once("../config.php");
 require_once("../variables.php");
 
+// Start a new timer or restart an existing one
 if (isset($_POST['start_timer']) && $_POST['start_timer']) {
+    
     $new_timer = new Timer;
-    $new_timer->name = trim($_POST['timer_name']);
-    $new_timer->date = date(TIMER_DATE_FORMAT);
+
+    $new_timer->name      = trim($_POST['timer_name']);
+    $new_timer->date      = date(TIMER_DATE_FORMAT);
     $new_timer->author_id = $session->user_id;
 
     if (!$new_timer->verify_new_timer()) {
@@ -29,7 +32,26 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
                 json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name]);
             }
         }
-        
+    }
+
+}
+
+// Stop a timer
+if (isset($_POST['stop_timer']) && $_POST['stop_timer']) {
+    
+    $existing_timer = new Timer;
+
+    $existing_timer->name          = trim($_POST['timer_name']);
+    $existing_timer->date          = date(TIMER_DATE_FORMAT);
+    $existing_timer->author_id     = $session->user_id;
+    $existing_timer->duration_secs = $_POST['timer_duration'];
+    $existing_timer->active        = 0;
+
+    if ($existing_timer->exists() && $existing_timer->active()) {
+        echo ($existing_timer->stop());
+    } else {
+        // User is trying to stop a timer that doesn't exist or isn't active
+        echo false;
     }
 }
 
