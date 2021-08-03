@@ -27,11 +27,11 @@ if (!$session->is_signed_in()) header("Location: login.php");
     </section>
 
     <section id="task_container" class="mainapp_tasks">
-<!--
-        <div class="mainapp_tasks_notasks">
+
+        <div id="no_tasks" class="mainapp_tasks_notasks">
             No tasks yet.
         </div>
--->
+        
         <div id="task_template" class="mainapp_tasks_task task_row">
             <p class="mainapp_tasks_task_taskdesc">
                 <span class="mainapp_tasks_task_taskdesc_name task_name">Task Name</span>

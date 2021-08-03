@@ -3,6 +3,21 @@
 require_once("../config.php");
 require_once("../variables.php");
 
+// Retrieve timers
+if (isset($_POST['retrieve_timers']) && $_POST['retrieve_timers']) {
+    
+    $response = [];
+
+    if (!$timers = Timer::retrieve_timers($session->user_id, date(TIMER_DATE_FORMAT))) {
+        $response['no_timers'] = 1;
+    } else {
+        $response['timers'] = $timers;
+    }
+
+    echo json_encode($response);
+
+}
+
 // Start a new timer or restart an existing one
 if (isset($_POST['start_timer']) && $_POST['start_timer']) {
 

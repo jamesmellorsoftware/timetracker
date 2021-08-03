@@ -139,6 +139,22 @@ class Timer extends db_objects {
         return !empty($result_set) ? true : false;
     }
 
+    public static function retrieve_timers($author_id, $date) {
+        global $db;
+
+        $sql = "SELECT * FROM " . Timer::get_table_name() . " ";
+        $sql.= "WHERE date = ? AND author_id = ? ";
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param("si", $date, $author_id);
+        $stmt->execute();
+        
+        $results = $stmt->get_result();
+        $result_set = self::retrieve_objects_from_db($results);
+
+        return !empty($result_set) ? $result_set : false;
+    }
+
 } // end of class Timer
 
 ?>

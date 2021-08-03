@@ -1,5 +1,45 @@
 $(document).ready(function() {
 
+    // ===== RETRIEVE TIMERS ============================================================ //
+    $.ajax({
+        type: 'post',
+        url: 'includes/controllers/mainapp_controller.php',
+        dataType: 'json',
+        data: {
+            "retrieve_timers": true
+        },
+        success: function(response) {
+            // DB queried to see if user has active timers for today
+            // If timers active, start their timer
+
+            if (response.no_timers) {
+                $("#no_tasks").css("display", "flex");
+            } else {
+
+                $("#no_tasks").css("display", "none");
+
+                for (var i = 0; i < response.timers.length; i++) {
+                    var new_timer = $("#task_template").clone();
+                    new_timer.attr("id", response.timers[i].name);
+                    new_timer.find(".task_name").html(response.timers[i].name);
+                    new_timer.find("input.task_name").val(response.timers[i].name);
+                    $("#task_container").append(new_timer);
+                    if (response.timers[i].active) {
+                        $("#task_submit").addClass("btn-1_unclickable");
+                        startTimer(new_timer);
+                    }
+                }
+
+            }
+        },
+        error: function(error) {
+            console.debug('AJAX Error:');
+            console.debug(error);
+        }
+    });
+    // ================================================================================== //
+
+
     // ===== NEW TASK =================================================================== //
     $("#task_submit").on("click", function(){
 
@@ -16,6 +56,7 @@ $(document).ready(function() {
                 "timer_name": timer_name
             },
             success: function(response) {
+                $("#no_tasks").css("display", "none");
                 // If new task, add to list
                 if (response.new_timer) {
                     var new_timer = $("#task_template").clone();

@@ -25,9 +25,17 @@ class db_objects {
     }
 
     public static function retrieve_object_from_db($query_results){
-        // Loop through assoc array from query results and instantiate object for every row
+        // Loop through assoc array from query results and instantiate object for 1 row
         $result_object_set = [];
         while ($row = $query_results->fetch_assoc()) $result_object_set = static::retrieved_row_to_object_instance($row);
+
+        return $result_object_set;
+    }
+
+    public static function retrieve_objects_from_db($query_results){
+        // Loop through assoc array from query results and instantiate object for every row
+        $result_object_set = [];
+        while ($row = $query_results->fetch_assoc()) $result_object_set[] = static::retrieved_row_to_object_instance($row);
 
         return $result_object_set;
     }
