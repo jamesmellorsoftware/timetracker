@@ -187,6 +187,20 @@ class Timer extends db_objects {
         return true;
     }
 
+    public static function stop_all_timers($author_id) {
+        global $db;
+
+        $sql = "UPDATE " . Timer::get_table_name() . " ";
+        $sql.= "SET active = 0 ";
+        $sql.= "WHERE author_id = ? ";
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param("i", $author_id);
+        $stmt->execute();
+        
+        return true;
+    }
+
 } // end of class Timer
 
 ?>
