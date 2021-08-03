@@ -32,8 +32,9 @@ if (!$session->is_signed_in()) header("Location: login.php");
             No tasks yet.
         </div>
 
-        <div class="mainapp_tasks_totaltime">
-            <span class="mainapp_tasks_totaltime_text">Total time worked:</span>
+        <div id="total_time_container" class="mainapp_tasks_totaltime">
+            <input type="hidden" href="" id="tasks_duration_total" value="0">
+            <span class="mainapp_tasks_totaltime_text">Total time worked: </span>
             <span id="task_total" class="mainapp_tasks_totaltime_duration">
                 00:00:00
             </span>

@@ -386,4 +386,15 @@ input:active, input:focus {
   justify-content: center;
   text-transform: uppercase;
 }
+
+.mainapp_tasks_totaltime {
+  align-items: center;
+  border-bottom: 2px solid #add8e6;
+  display: flex;
+  font-style: italic;
+  justify-content: center;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  text-transform: uppercase;
+}
 /*# sourceMappingURL=main.css.map */

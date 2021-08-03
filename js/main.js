@@ -89,6 +89,7 @@ $(document).ready(function() {
 
         var task = $(this);
         var timer_name = task.siblings(".task_name").val();
+        var timer_duration = task.siblings(".task_duration_total").val();
 
         $.ajax({
             type: 'post',
@@ -99,8 +100,11 @@ $(document).ready(function() {
                 "timer_name": timer_name
             },
             success: function(response) {
-                // stopTimer();
+                stopTimer();
                 task.closest(".task_row").remove();
+                console.log($("#tasks_duration_total").val());
+                console.log(timer_duration);
+                updateTotalTime($("#tasks_duration_total").val() - timer_duration);
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -126,12 +130,16 @@ $(document).ready(function() {
     
                 if (response.no_timers) {
                     $("#no_tasks").css("display", "flex");
+                    $("#total_time_container").css("display", "none");
                 } else {
     
                     $("#no_tasks").css("display", "none");
+
+                    var total_secs = 0;
     
                     for (var i = 0; i < response.timers.length; i++) {
                         var new_timer = $("#task_template").clone();
+
                         new_timer.attr("id", response.timers[i].name);
                         new_timer.find(".task_name").html(response.timers[i].name);
                         new_timer.find("input.task_name").val(response.timers[i].name);
@@ -142,13 +150,15 @@ $(document).ready(function() {
                         new_timer.find(".task_duration_total").val(timer_seconds);
     
                         // Calculate time hours mins secs
-                        var timer_hours = addZeros(Math.floor(timer_seconds / 3600));
-                        var timer_mins = addZeros(Math.floor(timer_seconds % 3600 / 60));
-                        var timer_secs = addZeros(Math.floor(timer_seconds % 3600 % 60));
+                        var timer_hours = Math.floor(timer_seconds / 3600);
+                        var timer_mins = Math.floor(timer_seconds % 3600 / 60);
+                        var timer_secs = Math.floor(timer_seconds % 3600 % 60);
+
+                        total_secs += timer_seconds;
     
-                        new_timer.find(".task_hours").html(timer_hours);
-                        new_timer.find(".task_mins").html(timer_mins);
-                        new_timer.find(".task_secs").html(timer_secs);
+                        new_timer.find(".task_hours").html(addZeros(timer_hours));
+                        new_timer.find(".task_mins").html(addZeros(timer_mins));
+                        new_timer.find(".task_secs").html(addZeros(timer_secs));
     
                         $("#task_container").append(new_timer);
     
@@ -160,6 +170,8 @@ $(document).ready(function() {
                             new_timer.find(".task_stop").css("display", "none");
                         }
                     }
+
+                    updateTotalTime(total_secs);
     
                 }
             },
@@ -172,6 +184,8 @@ $(document).ready(function() {
     
     
     function startTimer(timer) {
+        var totalTime = Number($("#tasks_duration_total").val());
+
         var timer_hours = timer.find(".task_hours");
         var timer_mins  = timer.find(".task_mins");
         var timer_secs  = timer.find(".task_secs");
@@ -185,6 +199,7 @@ $(document).ready(function() {
             timer_secs.html(addZeros(totalSeconds % 60));
             timer_mins.html(addZeros(parseInt(totalSeconds / 60)));
             timer_hours.html(addZeros(parseInt(totalSeconds / (60 * 60))));
+            updateTotalTime(totalTime + totalSeconds);
         }
     }
 
@@ -236,6 +251,16 @@ $(document).ready(function() {
                 }
             });
         }
+    }
+
+
+    function updateTotalTime(total_secs) {
+        var total_hours = addZeros(Math.floor(total_secs / 3600));
+        var total_mins = addZeros(Math.floor(total_secs % 3600 / 60));
+        total_secs = addZeros(Math.floor(total_secs % 3600 % 60));
+
+        $("#task_total").html(total_hours+":"+total_mins+":"+total_secs);
+        $("#tasks_duration_total").val(total_secs);
     }
 
 
