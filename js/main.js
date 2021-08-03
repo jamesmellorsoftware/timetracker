@@ -1,9 +1,6 @@
 $(document).ready(function() {
 
-    retrieveTimers();
-
-    startUpdateTimers();
-
+    initialiseTimetracker();
 
     // ===== NEW TASK =================================================================== //
     $("#task_submit").on("click", function(){
@@ -189,6 +186,12 @@ $(document).ready(function() {
         }
     }
 
+
+    function initialiseTimetracker() {
+        retrieveTimers();
+        startUpdateTimers();
+    }
+
     
     function stopTimer() {
         clearInterval(window.taskTimer);
@@ -223,7 +226,7 @@ $(document).ready(function() {
                     "timer_data": timer_data
                 },
                 success: function(response) {
-                    console.log(response);
+                    // Currently no feedback
                 },
                 error: function(error) {
                     console.debug('AJAX Error:');

@@ -102,6 +102,10 @@ input:active, input:focus {
   visibility: hidden !important;
 }
 
+#task_template {
+  display: none;
+}
+
 .loginreg {
   display: grid;
   height: 100%;
@@ -376,7 +380,7 @@ input:active, input:focus {
 
 .mainapp_tasks_notasks {
   align-items: center;
-  display: flex;
+  display: none;
   font-style: italic;
   height: 100%;
   justify-content: center;
