@@ -38,6 +38,7 @@ $(document).ready(function() {
                     // existing_timer.css("background-color", "green");
                     if (response.timer_restart) startTimer(existing_timer);
                     existing_timer.find(".task_stop").css("display", "inline");
+                    existing_timer.addClass("active");
                 }
 
                 $("#task_submit").addClass("btn-1_unclickable");
