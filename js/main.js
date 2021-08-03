@@ -9,6 +9,8 @@ $(document).ready(function() {
 
         var timer_name = $("#task").val();
 
+        if (!timer_name.length) return false;
+
         if ($("#task_submit").hasClass("btn-1_unclickable")) return false;
 
         $.ajax({
@@ -45,6 +47,7 @@ $(document).ready(function() {
                 $("#total_time_container").addClass("active");
                 $("#task_submit").addClass("btn-1_unclickable");
                 $("#task").val("");
+                $("#task").attr("disabled", "disabled");
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -79,6 +82,7 @@ $(document).ready(function() {
                 button_clicked.css("display", "none");
                 button_clicked.closest(".task_row").removeClass("active");
                 $("#total_time_container").removeClass("active");
+                $("#task").removeAttr("disabled", "disabled");
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -108,8 +112,6 @@ $(document).ready(function() {
             success: function(response) {
                 stopTimer();
                 task.closest(".task_row").remove();
-                console.log($("#tasks_duration_total").val());
-                console.log(timer_duration);
                 updateTotalTime($("#tasks_duration_total").val() - timer_duration);
                 $("#total_time_container").removeClass("active");
             },
@@ -128,7 +130,6 @@ $(document).ready(function() {
         var prevDate = Number($("#task_date").val()) - 1;
         retrieveTimers(prevDate);
         $("#task_date").val(prevDate);
-
     });
 
     $(".nextday").on("click", function() {
@@ -210,10 +211,14 @@ $(document).ready(function() {
                         $(".task_delete").css("display", "inline");
                         $(".today").html("Today");
                         $(".nextday").addClass("btn-1_unclickable");
+                        $("#task_submit").removeClass("btn-1_unclickable");
+                        $("#task").removeAttr("disabled");
                     } else {
                         $(".task_delete").css("display", "none");
                         $(".today").html(response.date);
                         $(".nextday").removeClass("btn-1_unclickable");
+                        $("#task_submit").addClass("btn-1_unclickable");
+                        $("#task").attr("disabled", "disabled");
                     }
 
                     updateTotalTime(total_secs);
