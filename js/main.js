@@ -35,12 +35,12 @@ $(document).ready(function() {
                 // If task exists, restart its timer
                 if (response.timer_exists) {
                     var existing_timer = $("#"+response.timer_name);
-                    // existing_timer.css("background-color", "green");
                     if (response.timer_restart) startTimer(existing_timer);
                     existing_timer.find(".task_stop").css("display", "inline");
                     existing_timer.addClass("active");
                 }
 
+                $("#total_time_container").addClass("active");
                 $("#task_submit").addClass("btn-1_unclickable");
                 $("#task").val("");
             },
@@ -76,6 +76,7 @@ $(document).ready(function() {
                 $("#task_submit").removeClass("btn-1_unclickable");
                 button_clicked.css("display", "none");
                 button_clicked.closest(".task_row").removeClass("active");
+                $("#total_time_container").removeClass("active");
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -108,6 +109,7 @@ $(document).ready(function() {
                 console.log($("#tasks_duration_total").val());
                 console.log(timer_duration);
                 updateTotalTime($("#tasks_duration_total").val() - timer_duration);
+                $("#total_time_container").removeClass("active");
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -170,6 +172,7 @@ $(document).ready(function() {
                             $("#task_submit").addClass("btn-1_unclickable");
                             startTimer(new_timer);
                             new_timer.addClass("active");
+                            $("#total_time_container").addClass("active");
                         } else {
                             new_timer.find(".task_stop").css("display", "none");
                         }

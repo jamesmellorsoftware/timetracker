@@ -396,6 +396,7 @@ input:active, input:focus {
   border-bottom: 2px solid #add8e6;
   display: flex;
   font-style: italic;
+  font-weight: 800;
   justify-content: center;
   padding-bottom: 5px;
   padding-top: 5px;
