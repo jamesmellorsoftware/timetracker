@@ -45,9 +45,8 @@ $(document).ready(function() {
                 }
 
                 $("#total_time_container").addClass("active");
-                $("#task_submit").addClass("btn-1_unclickable");
-                $("#task").val("");
-                $("#task").attr("disabled", "disabled");
+
+                disableNewTasks();
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -200,13 +199,14 @@ $(document).ready(function() {
                         new_timer.find(".task_secs").html(addZeros(timer_secs));
     
                         $("#task_container").append(new_timer);
-    
+                        
+                        updateTotalTime(total_secs);
     
                         if (response.timers[i].active) {
-                            $("#task_submit").addClass("btn-1_unclickable");
                             startTimer(new_timer);
                             new_timer.addClass("active");
                             $("#total_time_container").addClass("active");
+                            disableNewTasks();
                         } else {
                             new_timer.find(".task_stop").css("display", "none");
                         }
@@ -226,8 +226,6 @@ $(document).ready(function() {
                         $("#task").attr("disabled", "disabled");
                     }
 
-                    updateTotalTime(total_secs);
-    
                 }
             },
             error: function(error) {
@@ -254,8 +252,6 @@ $(document).ready(function() {
             timer_secs.html(addZeros(totalSeconds % 60));
             timer_mins.html(addZeros(parseInt(totalSeconds / 60)));
             timer_hours.html(addZeros(parseInt(totalSeconds / (60 * 60))));
-            console.log(totalTime);
-            console.log(totalSeconds);
             updateTotalTime(totalTime + totalSeconds);
         }
     }
@@ -316,6 +312,14 @@ $(document).ready(function() {
 
         $("#task_total").html(total_hours+":"+total_mins+":"+total_secs);
         $("#tasks_duration_total").val(total_seconds);
+    }
+
+
+    function disableNewTasks() {
+        console.log('trg');
+        $("#task").val("");
+        if (!$('#task_submit').hasClass("btn-1_unclickable")) $('#task_submit').addClass("btn-1_unclickable");
+        $("#task").attr("disabled", "disabled");
     }
 
 
