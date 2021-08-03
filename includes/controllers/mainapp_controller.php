@@ -8,7 +8,15 @@ if (isset($_POST['retrieve_timers']) && $_POST['retrieve_timers']) {
     
     $response = [];
 
-    if (!$timers = Timer::retrieve_timers($session->user_id, date(TIMER_DATE_FORMAT))) {
+    if (isset($_POST['date_difference']) && !empty($_POST['date_difference'])) {
+        $date_difference = trim($_POST['date_difference']);
+        if ($date_difference == 0) $date = date(TIMER_DATE_FORMAT);
+        $date = date('Y-m-d', (strtotime ($date_difference.' day' , strtotime(date(TIMER_DATE_FORMAT)))) );
+    } else {
+        $date = date(TIMER_DATE_FORMAT);
+    }
+
+    if (!$timers = Timer::retrieve_timers($session->user_id, $date)) {
         $response['no_timers'] = 1;
     } else {
         $response['timers'] = $timers;

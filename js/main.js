@@ -121,18 +121,42 @@ $(document).ready(function() {
     // ================================================================================== //
 
 
-    function retrieveTimers() {
+    // ===== CHANGE DATE ================================================================ //
+    $(".prevday").on("click", function() {
+        var currentDate = $("#task_date").val();
+        retrieveTimers(currentDate-1);
+        if (currentDate - 1 != 0) {
+            $(".task_delete").css("display", "none");
+        }
+    });
+
+    $(".nextday").on("click", function() {
+        var currentDate = $("#task_date").val();
+        retrieveTimers(currentDate+1);
+        if (currentDate + 1 != 0) {
+            $(".task_delete").css("display", "none");
+        }
+    });
+
+    $(".today").on("click", function() {
+        retrieveTimers(0);
+    });
+    // ================================================================================== //
+
+
+    function retrieveTimers(date_difference = 0) {
         $.ajax({
             type: 'post',
             url: 'includes/controllers/mainapp_controller.php',
             dataType: 'json',
             data: {
-                "retrieve_timers": true
+                "retrieve_timers": true,
+                "date_difference": date_difference
             },
             success: function(response) {
                 // DB queried to see if user has active timers for today
                 // If timers active, start their timer
-    
+
                 if (response.no_timers) {
                     $("#no_tasks").css("display", "flex");
                     $("#total_time_container").css("display", "none");

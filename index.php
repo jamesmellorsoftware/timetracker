@@ -28,6 +28,8 @@ if (!$session->is_signed_in()) header("Location: login.php");
 
     <section id="task_container" class="mainapp_tasks">
 
+        <input type="hidden" href="" id="task_date" value="0">
+
         <div id="no_tasks" class="mainapp_tasks_notasks">
             No tasks yet.
         </div>
