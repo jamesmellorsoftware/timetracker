@@ -16,6 +16,8 @@ if (isset($_POST['retrieve_timers']) && $_POST['retrieve_timers']) {
         $date = date(TIMER_DATE_FORMAT);
     }
 
+    $response['date'] = date("d / m / y", strtotime($date));
+
     if (!$timers = Timer::retrieve_timers($session->user_id, $date)) {
         $response['no_timers'] = 1;
     } else {

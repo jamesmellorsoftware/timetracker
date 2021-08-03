@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    window.new_timer = $("#task_template").clone();
+
     initialiseTimetracker();
 
     // ===== NEW TASK =================================================================== //
@@ -21,7 +23,7 @@ $(document).ready(function() {
                 $("#no_tasks").css("display", "none");
                 // If new task, add to list
                 if (response.new_timer) {
-                    var new_timer = $("#task_template").clone();
+                    var new_timer = window.new_timer.clone();
                     new_timer.attr("id", response.new_timer_name);
                     new_timer.find(".task_name").html(response.new_timer_name);
                     new_timer.find("input.task_name").val(response.new_timer_name);
@@ -123,23 +125,23 @@ $(document).ready(function() {
 
     // ===== CHANGE DATE ================================================================ //
     $(".prevday").on("click", function() {
-        var currentDate = $("#task_date").val();
-        retrieveTimers(currentDate-1);
-        if (currentDate - 1 != 0) {
-            $(".task_delete").css("display", "none");
-        }
+        var prevDate = Number($("#task_date").val()) - 1;
+        retrieveTimers(prevDate);
+        $("#task_date").val(prevDate);
+
     });
 
     $(".nextday").on("click", function() {
-        var currentDate = $("#task_date").val();
-        retrieveTimers(currentDate+1);
-        if (currentDate + 1 != 0) {
-            $(".task_delete").css("display", "none");
-        }
+        if ($(this).hasClass("btn-1_unclickable")) return false;
+        var nextDate = Number($("#task_date").val()) + 1;
+        retrieveTimers(nextDate);
+        $("#task_date").val(nextDate);
+
     });
 
     $(".today").on("click", function() {
         retrieveTimers(0);
+        $("#task_date").val(0);
     });
     // ================================================================================== //
 
@@ -157,6 +159,8 @@ $(document).ready(function() {
                 // DB queried to see if user has active timers for today
                 // If timers active, start their timer
 
+                $(".task_row").remove();
+
                 if (response.no_timers) {
                     $("#no_tasks").css("display", "flex");
                     $("#total_time_container").css("display", "none");
@@ -167,7 +171,7 @@ $(document).ready(function() {
                     var total_secs = 0;
     
                     for (var i = 0; i < response.timers.length; i++) {
-                        var new_timer = $("#task_template").clone();
+                        var new_timer = window.new_timer.clone();
 
                         new_timer.attr("id", response.timers[i].name);
                         new_timer.find(".task_name").html(response.timers[i].name);
@@ -200,6 +204,16 @@ $(document).ready(function() {
                         } else {
                             new_timer.find(".task_stop").css("display", "none");
                         }
+                    }
+
+                    if (date_difference == 0) {
+                        $(".task_delete").css("display", "inline");
+                        $(".today").html("Today");
+                        $(".nextday").addClass("btn-1_unclickable");
+                    } else {
+                        $(".task_delete").css("display", "none");
+                        $(".today").html(response.date);
+                        $(".nextday").removeClass("btn-1_unclickable");
                     }
 
                     updateTotalTime(total_secs);
