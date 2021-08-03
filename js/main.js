@@ -34,7 +34,7 @@ $(document).ready(function() {
                 // If task exists, restart its timer
                 if (response.timer_exists) {
                     var existing_timer = $("#"+response.timer_name);
-                    existing_timer.css("background-color", "green");
+                    // existing_timer.css("background-color", "green");
                     if (response.timer_restart) startTimer(existing_timer);
                     existing_timer.find(".task_stop").css("display", "inline");
                 }
