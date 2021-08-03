@@ -80,8 +80,7 @@ $(document).ready(function() {
                 $("#task_submit").removeClass("btn-1_unclickable");
                 button_clicked.css("display", "none");
                 button_clicked.closest(".task_row").removeClass("active");
-                $("#total_time_container").removeClass("active");
-                $("#task").removeAttr("disabled");
+                enableNewTasks();
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -115,8 +114,7 @@ $(document).ready(function() {
                 $("#total_time_container").removeClass("active");
 
                 if (response == "active") {
-                    $("#task").removeAttr("disabled");
-                    $("#task_submit").removeClass("btn-1_unclickable");
+                    enableNewTasks();
                 }
             },
             error: function(error) {
@@ -166,6 +164,18 @@ $(document).ready(function() {
 
                 $(".task_row").remove();
 
+                if (date_difference == 0) {
+                    $(".task_delete").css("display", "inline");
+                    $(".today").html("Today");
+                    $(".nextday").addClass("btn-1_unclickable");
+                    enableNewTasks();
+                } else {
+                    $(".task_delete").css("display", "none");
+                    $(".today").html(response.date);
+                    $(".nextday").removeClass("btn-1_unclickable");
+                    disableNewTasks();
+                }
+
                 if (response.no_timers) {
                     $("#no_tasks").css("display", "flex");
                     $("#total_time_container").css("display", "none");
@@ -210,20 +220,6 @@ $(document).ready(function() {
                         } else {
                             new_timer.find(".task_stop").css("display", "none");
                         }
-                    }
-
-                    if (date_difference == 0) {
-                        $(".task_delete").css("display", "inline");
-                        $(".today").html("Today");
-                        $(".nextday").addClass("btn-1_unclickable");
-                        $("#task_submit").removeClass("btn-1_unclickable");
-                        $("#task").removeAttr("disabled");
-                    } else {
-                        $(".task_delete").css("display", "none");
-                        $(".today").html(response.date);
-                        $(".nextday").removeClass("btn-1_unclickable");
-                        $("#task_submit").addClass("btn-1_unclickable");
-                        $("#task").attr("disabled", "disabled");
                     }
 
                 }
@@ -316,10 +312,23 @@ $(document).ready(function() {
 
 
     function disableNewTasks() {
-        console.log('trg');
         $("#task").val("");
-        if (!$('#task_submit').hasClass("btn-1_unclickable")) $('#task_submit').addClass("btn-1_unclickable");
-        $("#task").attr("disabled", "disabled");
+        if (!$('#task_submit').hasClass("btn-1_unclickable")) {
+            $('#task_submit').addClass("btn-1_unclickable");
+        }
+        if ($("#task").attr("disabled") != "disabled") {
+            $("#task").attr("disabled", "disabled");
+        }
+    }
+
+    function enableNewTasks() {
+        $("#task").val("");
+        if ($('#task_submit').hasClass("btn-1_unclickable")) {
+            $('#task_submit').removeClass("btn-1_unclickable");
+        }
+        if ($("#task").attr("disabled") == "disabled") {
+            $("#task").removeAttr("disabled");
+        }
     }
 
 
