@@ -27,8 +27,6 @@ $(document).ready(function() {
                     new_timer.find("input.task_name").val(response.new_timer_name);
                     new_timer.find(".task_duration_total").attr("href", response.new_timer_id);
                     $("#task_container").append(new_timer);
-                    $("#task_submit").addClass("btn-1_unclickable");
-                    $("#task").val("");
                     startTimer(new_timer);
                     new_timer.find(".task_stop").css("display", "inline");
                 }
@@ -38,7 +36,11 @@ $(document).ready(function() {
                     var existing_timer = $("#"+response.timer_name);
                     existing_timer.css("background-color", "green");
                     if (response.timer_restart) startTimer(existing_timer);
+                    existing_timer.find(".task_stop").css("display", "inline");
                 }
+
+                $("#task_submit").addClass("btn-1_unclickable");
+                $("#task").val("");
             },
             error: function(error) {
                 console.debug('AJAX Error:');

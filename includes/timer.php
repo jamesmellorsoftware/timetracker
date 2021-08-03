@@ -49,6 +49,24 @@ class Timer extends db_objects {
         return $stmt->affected_rows ? true : false;
     }
 
+    public function restart(){
+        
+        if (!$this) return false;
+
+        global $db;
+
+        $sql = "UPDATE " . Timer::get_table_name() . " ";
+        $sql.= "SET active = 1 ";
+        $sql.= "WHERE ";
+        $sql.= "active = 0 AND name = ? AND date = ? AND author_id = ? ";
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param('ssi', $this->name, $this->date, $this->author_id);
+        $stmt->execute();
+
+        return $stmt->affected_rows ? true : false;
+    }
+
     public function delete(){
         
         if (!$this) return false;

@@ -79,13 +79,14 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
     
             } else {
                 // Timer already exists, restart its timer
-                json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name, 'timer_restart' => 1]);
+                echo ($new_timer->restart()) ?
+                json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name, 'timer_restart' => 1])
+                :
+                false;
             }
         }
 
     }
-
-    
 
 }
 
