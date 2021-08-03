@@ -102,13 +102,13 @@ $(document).ready(function() {
     // ================================================================================== //
 
 
-    function startTimer(timer) {
+    function startTimer(timer, stopTimer) {
         var timer_hours = timer.find(".task_hours");
         var timer_mins  = timer.find(".task_mins");
         var timer_secs  = timer.find(".task_secs");
 
         var totalSeconds = parseInt(timer.find(".task_duration_total").val());
-        var taskTimer = setInterval(setTime, 1000);
+        window.taskTimer = setInterval(setTime, 1000);
 
         function setTime() {
             ++totalSeconds;
@@ -121,7 +121,7 @@ $(document).ready(function() {
 
     
     function stopTimer() {
-        clearInterval(taskTimer);
+        clearInterval(window.taskTimer);
     }
 
 

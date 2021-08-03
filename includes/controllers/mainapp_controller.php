@@ -62,10 +62,10 @@ if (isset($_POST['stop_timer']) && $_POST['stop_timer']) {
     $existing_timer->duration_secs = $_POST['timer_duration'];
     $existing_timer->active        = 0;
 
-    if ($existing_timer->exists() && $existing_timer->active()) {
+    if ($existing_timer->exists()) {
         echo ($existing_timer->stop());
     } else {
-        // User is trying to stop a timer that doesn't exist or isn't active
+        // User is trying to stop a timer that doesn't exist
         echo false;
     }
 }
