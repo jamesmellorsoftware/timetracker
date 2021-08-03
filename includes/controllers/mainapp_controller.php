@@ -18,6 +18,26 @@ if (isset($_POST['retrieve_timers']) && $_POST['retrieve_timers']) {
 
 }
 
+// Update timers
+if (isset($_POST['update_timers']) && $_POST['update_timers']) {
+
+    if (!isset($session->user_id)) return false;
+
+    if (isset($_POST['timer_data']) && !empty($_POST['timer_data'])) $timers = $_POST['timer_data'];
+
+    foreach ($timers as $id => $duration_secs) {
+
+        $id = trim($id);
+        $duration_secs = trim($duration_secs);
+
+        if (!empty($id) && !empty($duration_secs)) {
+            Timer::update_timer($id, $duration_secs, $session->user_id);
+        }
+    }
+
+    echo json_encode($_POST['timer_data']);
+}
+
 // Start a new timer or restart an existing one
 if (isset($_POST['start_timer']) && $_POST['start_timer']) {
 

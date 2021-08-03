@@ -1,94 +1,8 @@
 $(document).ready(function() {
 
-    // ===== RETRIEVE TIMERS ============================================================ //
-    $.ajax({
-        type: 'post',
-        url: 'includes/controllers/mainapp_controller.php',
-        dataType: 'json',
-        data: {
-            "retrieve_timers": true
-        },
-        success: function(response) {
-            // DB queried to see if user has active timers for today
-            // If timers active, start their timer
+    retrieveTimers();
 
-            if (response.no_timers) {
-                $("#no_tasks").css("display", "flex");
-            } else {
-
-                $("#no_tasks").css("display", "none");
-
-                for (var i = 0; i < response.timers.length; i++) {
-                    var new_timer = $("#task_template").clone();
-                    new_timer.attr("id", response.timers[i].name);
-                    new_timer.find(".task_name").html(response.timers[i].name);
-                    new_timer.find("input.task_name").val(response.timers[i].name);
-                    new_timer.find(".task_duration_total").attr("href", response.timers[i].id);
-
-                    var timer_seconds = Number(response.timers[i].duration_secs);
-
-                    new_timer.find(".task_duration_total").val(timer_seconds);
-
-                    // Calculate time hours mins secs
-                    var timer_hours = addZeros(Math.floor(timer_seconds / 3600));
-                    var timer_mins = addZeros(Math.floor(timer_seconds % 3600 / 60));
-                    var timer_secs = addZeros(Math.floor(timer_seconds % 3600 % 60));
-
-                    new_timer.find(".task_hours").html(timer_hours);
-                    new_timer.find(".task_mins").html(timer_mins);
-                    new_timer.find(".task_secs").html(timer_secs);
-
-                    $("#task_container").append(new_timer);
-
-
-                    if (response.timers[i].active) {
-                        $("#task_submit").addClass("btn-1_unclickable");
-                        startTimer(new_timer);
-                    } else {
-                        new_timer.find(".task_stop").css("display", "none");
-                    }
-                }
-
-            }
-        },
-        error: function(error) {
-            console.debug('AJAX Error:');
-            console.debug(error);
-        }
-    });
-    // ================================================================================== //
-
-
-    // ===== UPDATE TIMERS ============================================================== //
-    var updateTimerMins = 5;
-    window.updateTimer = setInterval(updateTimers, updateTimerMins * 60 * 1000);
-
-    function updateTimers() {
-        // retrieve all timers' total seconds values and send them to the db
-
-        var timer_values = $(".task_duration_total").each(function(){
-
-        });
-
-        $.ajax({
-            type: 'post',
-            url: 'includes/controllers/mainapp_controller.php',
-            dataType: 'json',
-            data: {
-                "retrieve_timers": true
-            },
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.debug('AJAX Error:');
-                console.debug(error);
-            }
-        });
-    }
-
-    
-    // ================================================================================== //
+    startUpdateTimers();
 
 
     // ===== NEW TASK =================================================================== //
@@ -199,6 +113,65 @@ $(document).ready(function() {
     // ================================================================================== //
 
 
+    function retrieveTimers() {
+        $.ajax({
+            type: 'post',
+            url: 'includes/controllers/mainapp_controller.php',
+            dataType: 'json',
+            data: {
+                "retrieve_timers": true
+            },
+            success: function(response) {
+                // DB queried to see if user has active timers for today
+                // If timers active, start their timer
+    
+                if (response.no_timers) {
+                    $("#no_tasks").css("display", "flex");
+                } else {
+    
+                    $("#no_tasks").css("display", "none");
+    
+                    for (var i = 0; i < response.timers.length; i++) {
+                        var new_timer = $("#task_template").clone();
+                        new_timer.attr("id", response.timers[i].name);
+                        new_timer.find(".task_name").html(response.timers[i].name);
+                        new_timer.find("input.task_name").val(response.timers[i].name);
+                        new_timer.find(".task_duration_total").attr("href", response.timers[i].id);
+    
+                        var timer_seconds = Number(response.timers[i].duration_secs);
+    
+                        new_timer.find(".task_duration_total").val(timer_seconds);
+    
+                        // Calculate time hours mins secs
+                        var timer_hours = addZeros(Math.floor(timer_seconds / 3600));
+                        var timer_mins = addZeros(Math.floor(timer_seconds % 3600 / 60));
+                        var timer_secs = addZeros(Math.floor(timer_seconds % 3600 % 60));
+    
+                        new_timer.find(".task_hours").html(timer_hours);
+                        new_timer.find(".task_mins").html(timer_mins);
+                        new_timer.find(".task_secs").html(timer_secs);
+    
+                        $("#task_container").append(new_timer);
+    
+    
+                        if (response.timers[i].active) {
+                            $("#task_submit").addClass("btn-1_unclickable");
+                            startTimer(new_timer);
+                        } else {
+                            new_timer.find(".task_stop").css("display", "none");
+                        }
+                    }
+    
+                }
+            },
+            error: function(error) {
+                console.debug('AJAX Error:');
+                console.debug(error);
+            }
+        });
+    }
+    
+    
     function startTimer(timer) {
         var timer_hours = timer.find(".task_hours");
         var timer_mins  = timer.find(".task_mins");
@@ -219,6 +192,45 @@ $(document).ready(function() {
     
     function stopTimer() {
         clearInterval(window.taskTimer);
+    }
+
+
+    function startUpdateTimers() {
+
+        var updateTimerMins = 5;
+
+        var updateTimerInterval = updateTimerMins * 60 * 1000;
+
+        window.updateTimer = setInterval(updateTimers, updateTimerInterval);
+
+        function updateTimers() {
+            // retrieve all timers' total seconds values and send them to the db
+
+            var timer_data = [];
+
+            $(".task_duration_total").each(function(index){
+                var id = $(this).attr("href");
+                var duration_secs = $(this).val();
+                timer_data[id] = duration_secs;
+            });
+
+            $.ajax({
+                type: 'post',
+                url: 'includes/controllers/mainapp_controller.php',
+                dataType: 'json',
+                data: {
+                    "update_timers": true,
+                    "timer_data": timer_data
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.debug('AJAX Error:');
+                    console.debug(error);
+                }
+            });
+        }
     }
 
 

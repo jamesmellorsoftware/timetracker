@@ -155,6 +155,20 @@ class Timer extends db_objects {
         return !empty($result_set) ? $result_set : false;
     }
 
+    public static function update_timer($id, $duration_secs, $author_id) {
+        global $db;
+
+        $sql = "UPDATE " . Timer::get_table_name() . " ";
+        $sql.= "SET duration_secs = ? ";
+        $sql.= "WHERE author_id = ? AND id = ? ";
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param("iii", $duration_secs, $author_id, $id);
+        $stmt->execute();
+        
+        return true;
+    }
+
 } // end of class Timer
 
 ?>
