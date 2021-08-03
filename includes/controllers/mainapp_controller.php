@@ -129,7 +129,11 @@ if (isset($_POST['delete_timer']) && $_POST['delete_timer']) {
     $existing_timer->author_id     = $session->user_id;
 
     if ($existing_timer->exists()) {
-        echo ($existing_timer->delete());
+        if ($existing_timer->active()) {
+            echo ($existing_timer->delete()) ? json_encode("active") : false;
+        } else {
+            echo ($existing_timer->delete());
+        }
     } else {
         // User is trying to delete a timer that doesn't exist or doesn't belong to them
         echo false;

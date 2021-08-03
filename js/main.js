@@ -82,7 +82,7 @@ $(document).ready(function() {
                 button_clicked.css("display", "none");
                 button_clicked.closest(".task_row").removeClass("active");
                 $("#total_time_container").removeClass("active");
-                $("#task").removeAttr("disabled", "disabled");
+                $("#task").removeAttr("disabled");
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -114,6 +114,11 @@ $(document).ready(function() {
                 task.closest(".task_row").remove();
                 updateTotalTime($("#tasks_duration_total").val() - timer_duration);
                 $("#total_time_container").removeClass("active");
+
+                if (response == "active") {
+                    $("#task").removeAttr("disabled");
+                    $("#task_submit").removeClass("btn-1_unclickable");
+                }
             },
             error: function(error) {
                 console.debug('AJAX Error:');
