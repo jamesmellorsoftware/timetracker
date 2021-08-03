@@ -254,6 +254,8 @@ $(document).ready(function() {
             timer_secs.html(addZeros(totalSeconds % 60));
             timer_mins.html(addZeros(parseInt(totalSeconds / 60)));
             timer_hours.html(addZeros(parseInt(totalSeconds / (60 * 60))));
+            console.log(totalTime);
+            console.log(totalSeconds);
             updateTotalTime(totalTime + totalSeconds);
         }
     }
@@ -273,9 +275,7 @@ $(document).ready(function() {
     function startUpdateTimers() {
 
         var updateTimerMins = 5;
-
         var updateTimerInterval = updateTimerMins * 60 * 1000;
-
         window.updateTimer = setInterval(updateTimers, updateTimerInterval);
 
         function updateTimers() {
@@ -309,13 +309,13 @@ $(document).ready(function() {
     }
 
 
-    function updateTotalTime(total_secs) {
-        var total_hours = addZeros(Math.floor(total_secs / 3600));
-        var total_mins = addZeros(Math.floor(total_secs % 3600 / 60));
-        total_secs = addZeros(Math.floor(total_secs % 3600 % 60));
+    function updateTotalTime(total_seconds) {
+        var total_hours = addZeros(Math.floor(total_seconds / 3600));
+        var total_mins = addZeros(Math.floor(total_seconds % 3600 / 60));
+        total_secs = addZeros(Math.floor(total_seconds % 3600 % 60));
 
         $("#task_total").html(total_hours+":"+total_mins+":"+total_secs);
-        $("#tasks_duration_total").val(total_secs);
+        $("#tasks_duration_total").val(total_seconds);
     }
 
 
