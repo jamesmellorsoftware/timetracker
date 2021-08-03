@@ -14,27 +14,40 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
     $new_timer->date      = date(TIMER_DATE_FORMAT);
     $new_timer->author_id = $session->user_id;
 
-    if (!$new_timer->verify_new_timer()) {
-        echo json_encode($new_timer->errors);
+    if (Timer::timers_active($new_timer->author_id, $new_timer->date) || $new_timer->active()) {
+        // User is trying to start a timer when one is active
+        // They will only be able to do this by tampering with the JS
+        // Log them out
+        echo false;
+
     } else {
-        if (!$new_timer->exists()) {
 
-            $new_timer->duration_secs = 0;
-            $new_timer->active = 1;
+        if (!$new_timer->verify_new_timer()) {
 
-            echo ($new_timer->save()) ?
-                json_encode(["new_timer" => 1, "new_timer_name" => $new_timer->name])
-                :
-                json_encode($new_timer->errors);
+            echo json_encode($new_timer->errors);
 
         } else {
-            if (!$new_timer->active()) {
-                json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name, 'timer_restart' => 1]);
+
+            if (!$new_timer->exists()) {
+                // Timer doesn't exist, create it
+    
+                $new_timer->duration_secs = 0;
+                $new_timer->active = 1;
+    
+                echo ($new_timer->save()) ?
+                    json_encode(["new_timer" => 1, "new_timer_name" => $new_timer->name])
+                    :
+                    json_encode($new_timer->errors);
+    
             } else {
-                echo false;
+                // Timer already exists, restart its timer
+                json_encode(['timer_exists' => 1, 'timer_name' => $new_timer->name, 'timer_restart' => 1]);
             }
         }
+
     }
+
+    
 
 }
 

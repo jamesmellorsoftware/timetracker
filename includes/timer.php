@@ -122,6 +122,23 @@ class Timer extends db_objects {
         return true;
     }
 
+    public static function timers_active($author_id, $date) {
+        global $db;
+
+        $sql = "SELECT * FROM " . Timer::get_table_name() . " ";
+        $sql.= "WHERE date = ? AND author_id = ? AND active = 1 ";
+        $sql.= "LIMIT 1 ";
+
+        $stmt = $db->connection->prepare($sql);
+        $stmt->bind_param("si", $date, $author_id);
+        $stmt->execute();
+        
+        $results = $stmt->get_result();
+        $result_set = self::retrieve_object_from_db($results);
+
+        return !empty($result_set) ? true : false;
+    }
+
 } // end of class Timer
 
 ?>
