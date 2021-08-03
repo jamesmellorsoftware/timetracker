@@ -50,7 +50,10 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
                 $new_timer->active = 1;
     
                 echo ($new_timer->save()) ?
-                    json_encode(["new_timer" => 1, "new_timer_name" => $new_timer->name])
+                    json_encode(
+                        ["new_timer" => 1,
+                        "new_timer_name" => $new_timer->name,
+                        "new_timer_id" => $new_timer->id])
                     :
                     json_encode($new_timer->errors);
     
