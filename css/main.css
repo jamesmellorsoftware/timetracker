@@ -55,6 +55,10 @@ input:active, input:focus {
   outline: none !important;
 }
 
+.active {
+  background-color: #e8f4f8;
+}
+
 .btn-1 {
   align-items: center;
   background-color: #add8e6;

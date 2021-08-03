@@ -29,6 +29,7 @@ $(document).ready(function() {
                     $("#task_container").append(new_timer);
                     startTimer(new_timer);
                     new_timer.find(".task_stop").css("display", "inline");
+                    new_timer.addClass("active");
                 }
 
                 // If task exists, restart its timer
@@ -73,6 +74,7 @@ $(document).ready(function() {
                 stopTimer();
                 $("#task_submit").removeClass("btn-1_unclickable");
                 button_clicked.css("display", "none");
+                button_clicked.closest(".task_row").removeClass("active");
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -166,6 +168,7 @@ $(document).ready(function() {
                         if (response.timers[i].active) {
                             $("#task_submit").addClass("btn-1_unclickable");
                             startTimer(new_timer);
+                            new_timer.addClass("active");
                         } else {
                             new_timer.find(".task_stop").css("display", "none");
                         }

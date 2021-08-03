@@ -58,6 +58,10 @@ input {
 }
 
 // ===== HELPER CLASSES ===== //
+.active {
+    background-color: lighten($color_lightblue, 15%);
+}
+
 .btn-1 {
     align-items: center;
     background-color: $color_lightblue;
