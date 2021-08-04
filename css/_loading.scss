@@ -1,0 +1,36 @@
+.loading {
+    align-items: center;
+    background-color: rgba(255,255,255,0.9);
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    z-index: 1000;
+
+    &_spinner {
+        align-items: center;
+        border: 16px solid $color-background;
+        border-bottom: 16px solid $color-lightblue;
+        border-top: 16px solid $color-lightblue;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        width: 120px;
+        height: 120px;
+        animation: loader_spin 2s linear infinite;
+
+        &_text {
+            filter: invert(100%);
+            text-align: center;
+        }
+    }
+
+}
+
+@keyframes loader_spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

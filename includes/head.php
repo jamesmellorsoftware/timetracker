@@ -29,3 +29,4 @@ $page = basename($_SERVER['PHP_SELF']);
 </head>
 
 <body>
+<?php require_once("subpages/loading.php"); ?>
