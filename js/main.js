@@ -102,6 +102,7 @@ $(document).ready(function() {
                 if (response.new_timer) {
                     var new_timer = Timetracker.new_timer.clone();
                     new_timer.attr("id", response.new_timer_name);
+                    new_timer.attr("href", response.new_timer_name.replace(" ", "_"));
                     new_timer.find("."+Timetracker.class.taskName).html(response.new_timer_name);
                     new_timer.find("input."+Timetracker.class.taskName).val(response.new_timer_name);
                     new_timer.find("."+Timetracker.class.taskDurationTotal).attr("href", response.new_timer_id);
@@ -113,9 +114,12 @@ $(document).ready(function() {
 
                 // If task exists, restart its timer
                 if (response.timer_exists) {
-                    var existing_timer = $("#"+response.timer_name);
+                    // if id has a space in it, this breaks.
+                    var existing_timer = $('.task_row[href="'+response.timer_name.replace(" ", "_")+'"]');
+                    "."+Timetracker.class.unclickableButton(existing_timer);
                     existing_timer.find("."+Timetracker.class.taskStop).css("display", "inline");
                     existing_timer.addClass(Timetracker.class.timerActive);
+                    "."+Timetracker.class.unclickableButton(existing_timer);
                     if (response.timer_restart) startTimer(existing_timer);
                 }
 
@@ -196,6 +200,7 @@ $(document).ready(function() {
 
 
     function logout() {
+        
         showLoading();
         var timer_data = [];
 
@@ -294,6 +299,7 @@ $(document).ready(function() {
                         var new_timer = Timetracker.new_timer.clone();
 
                         new_timer.attr("id", response.timers[i].name);
+                        new_timer.attr("href", response.timers[i].name.replace(" ", "_"));
                         new_timer.find("."+Timetracker.class.taskName).html(response.timers[i].name);
                         new_timer.find("input."+Timetracker.class.taskName).val(response.timers[i].name);
                         new_timer.find("."+Timetracker.class.taskDurationTotal).attr("href", response.timers[i].id);
@@ -349,6 +355,7 @@ $(document).ready(function() {
         var timer_secs  = timer.find("."+Timetracker.class.taskTimeSecs);
 
         var totalSeconds = parseInt(timer.find("."+Timetracker.class.taskDurationTotal).val());
+        "."+Timetracker.class.unclickableButton(timer);
         
         Timetracker.taskTimer = setInterval(setTime, 1000);
 
