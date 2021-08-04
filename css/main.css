@@ -6,7 +6,8 @@ body {
   font-size: "16px";
   height: 100vh;
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 0;
   width: 100vw;
 }
@@ -114,7 +115,7 @@ input:active, input:focus {
   display: grid;
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: 30% 40% 30%;
+  grid-template-rows: 20% 50% 30%;
   width: 100%;
 }
 
@@ -219,6 +220,7 @@ input:active, input:focus {
   height: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: 30px 50px 1fr 30px;
+  overflow-y: auto;
   width: 100%;
 }
 

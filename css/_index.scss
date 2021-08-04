@@ -3,6 +3,7 @@
     height: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: 30px 50px 1fr 30px;
+    overflow-y: auto;
     width: 100%;
 
     @media screen and (min-width: $mobile_width) { grid-template-columns: 20% 1fr 20%; }
