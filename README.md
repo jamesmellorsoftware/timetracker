@@ -23,7 +23,7 @@ You will be able to log back in with the same credentials you used before.
 Project is: _in progress_
 
 ## Issues
- - 
+See issues tab to view bugs and future plans for Timetracker.
 
 ## Credits
 Icons:
