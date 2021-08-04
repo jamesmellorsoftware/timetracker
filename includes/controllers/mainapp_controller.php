@@ -5,6 +5,8 @@ require_once("../variables.php");
 
 // Retrieve timers
 if (isset($_POST['retrieve_timers']) && $_POST['retrieve_timers']) {
+
+    if (!isset($session->user_id)) return false;
     
     $response = [];
 
@@ -33,25 +35,30 @@ if (isset($_POST['update_timers']) && $_POST['update_timers']) {
 
     if (!isset($session->user_id)) return false;
 
-    if (isset($_POST['timer_data']) && !empty($_POST['timer_data'])) $timers = $_POST['timer_data'];
+    if (isset($_POST['timer_data']) && !empty($_POST['timer_data'])) {
+        
+        $timers = $_POST['timer_data'];
 
-    foreach ($timers as $id => $duration_secs) {
+        foreach ($timers as $id => $duration_secs) {
 
-        $id = trim($id);
-        $duration_secs = trim($duration_secs);
-
-        if (!empty($id) && !empty($duration_secs)) {
-            Timer::update_timer($id, $duration_secs, $session->user_id);
+            $id = trim($id);
+            $duration_secs = trim($duration_secs);
+    
+            if (!empty($id) && !empty($duration_secs)) {
+                Timer::update_timer($id, $duration_secs, $session->user_id);
+            }
         }
+    
+        echo json_encode($_POST['timer_data']);
+
+    } else {
+        echo json_encode(['no_update' => 1]);
     }
 
-    echo json_encode($_POST['timer_data']);
 }
 
 // Start a new timer or restart an existing one
 if (isset($_POST['start_timer']) && $_POST['start_timer']) {
-
-    // If a timer is active, return false
     
     $new_timer = new Timer;
 
@@ -60,9 +67,7 @@ if (isset($_POST['start_timer']) && $_POST['start_timer']) {
     $new_timer->author_id = $session->user_id;
 
     if (Timer::timers_active($new_timer->author_id, $new_timer->date) || $new_timer->active()) {
-        // User is trying to start a timer when one is active
-        // They will only be able to do this by tampering with the JS
-        // Log them out
+        
         echo false;
 
     } else {

@@ -269,7 +269,7 @@ $(document).ready(function() {
 
                 $("."+Timetracker.class.taskRow).remove();
 
-                if (date_difference >= 0) {
+                if (date_difference == 0) {
                     $("."+Timetracker.class.taskDelete).css("display", "inline");
                     Timetracker.element.dateSelectToday.html("Today");
                     Timetracker.element.dateSelectNext.addClass(Timetracker.class.unclickableButton);

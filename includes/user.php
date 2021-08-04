@@ -98,6 +98,13 @@ class User extends db_objects {
 
     }
 
+    public static function initialise_new($username, $password) {
+        $new_user = new User;
+        $new_user->username  = trim($username);
+        $new_user->password  = trim($password);
+        return $new_user;
+    }
+
 } // end of class User
 
 ?>
