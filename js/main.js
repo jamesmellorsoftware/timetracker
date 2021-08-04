@@ -1,40 +1,83 @@
 $(document).ready(function() {
 
-    window.Timetracker = {}; // namespace
-
-    // Define controller URLs
-    Timetracker.controllerDirectory = "includes/controllers/";
-    Timetracker.mainController = Timetracker.controllerDirectory + "mainapp_controller.php";
-
-    // Define element classes
-    Timetracker.class = {};
-    Timetracker.class.nextDay = "nextday";
-    Timetracker.class.prevDay = "prevday";
-    Timetracker.class.taskDelete = "task_delete";
-    Timetracker.class.taskStop = "task_stop";
-    Timetracker.class.toToday = "today";
-    Timetracker.class.unclickableButton = "btn-1_unclickable";
-
-    // Define element IDs
-    Timetracker.id = {};
-    Timetracker.id.logout = "#logout";
-    Timetracker.id.newTaskName = "#task";
-    Timetracker.id.noTasksDisplay = "#no_tasks";
-    Timetracker.id.taskDate = "#task_date";
-    Timetracker.id.taskSubmitButton = "#task_submit";
-    Timetracker.id.taskTemplate = "#task_template";
-    Timetracker.id.tasksContainer = "#task_container";
-    Timetracker.id.tasksDurationTotal = "#tasks_duration_total";
-    Timetracker.id.totalTimeContainer = "#total_time_container";
-
-    // Define templates
-    Timetracker.new_timer = $(Timetracker.id.taskTemplate).clone();
-    Timetracker.loading = $("#loading");
-
     initialiseTimetracker();
 
-    // ===== NEW TASK =================================================================== //
+    // Click handlers ================================================================== //
     $(Timetracker.id.taskSubmitButton).on("click", function(){
+        newTask();
+    });
+
+    $(document).on("click", '.'+Timetracker.class.taskStop, function(){
+        stopTask($(this));
+    });
+
+    $(document).on("click", '.'+Timetracker.class.taskDelete, function(){
+        deleteTask($(this));
+    });
+
+    $(Timetracker.id.logout).on("click", function(){
+        logout();
+    });
+
+    $("."+Timetracker.class.prevDay).on("click", function() {
+        changeDate($(this));
+    });
+
+    $("."+Timetracker.class.nextDay).on("click", function() {
+        changeDate($(this));
+    });
+
+    $("."+Timetracker.class.toToday).on("click", function() {
+        changeDate($(this));
+    });
+
+    // Functions ======================================================================= //
+    function initialiseTimetracker() {
+        window.Timetracker = {}; // namespace
+
+        // Define controller URLs
+        Timetracker.controllerDirectory = "includes/controllers/";
+        Timetracker.mainController = Timetracker.controllerDirectory + "mainapp_controller.php";
+
+        // Define element classes
+        Timetracker.class = {};
+        Timetracker.class.nextDay           = "nextday";
+        Timetracker.class.prevDay           = "prevday";
+        Timetracker.class.taskDelete        = "task_delete";
+        Timetracker.class.taskDurationTotal = "task_duration_total";
+        Timetracker.class.taskName          = "task_name";
+        Timetracker.class.taskRow           = "task_row";
+        Timetracker.class.taskStop          = "task_stop";
+        Timetracker.class.taskTimeHours     = "task_hours";
+        Timetracker.class.taskTimeMins      = "task_mins";
+        Timetracker.class.taskTimeSecs      = "task_secs";
+        Timetracker.class.timerActive       = "active";
+        Timetracker.class.toToday           = "today";
+        Timetracker.class.unclickableButton = "btn-1_unclickable";
+
+        // Define element IDs
+        Timetracker.id = {};
+        Timetracker.id.logout             = "#logout";
+        Timetracker.id.newTaskName        = "#task";
+        Timetracker.id.noTasksDisplay     = "#no_tasks";
+        Timetracker.id.taskDate           = "#task_date";
+        Timetracker.id.taskSubmitButton   = "#task_submit";
+        Timetracker.id.taskTemplate       = "#task_template";
+        Timetracker.id.tasksContainer     = "#task_container";
+        Timetracker.id.tasksDurationTotal = "#tasks_duration_total";
+        Timetracker.id.totalTimeContainer = "#total_time_container";
+
+        // Define templates
+        Timetracker.new_timer = $(Timetracker.id.taskTemplate).clone();
+        Timetracker.loading   = $("#loading");
+
+        // Starter functions
+        retrieveTimers();
+        startUpdateTimers();
+    }
+
+
+    function newTask() {
 
         var timer_name = $(Timetracker.id.newTaskName).val();
 
@@ -56,24 +99,24 @@ $(document).ready(function() {
                 if (response.new_timer) {
                     var new_timer = Timetracker.new_timer.clone();
                     new_timer.attr("id", response.new_timer_name);
-                    new_timer.find(".task_name").html(response.new_timer_name);
-                    new_timer.find("input.task_name").val(response.new_timer_name);
-                    new_timer.find(".task_duration_total").attr("href", response.new_timer_id);
+                    new_timer.find("."+Timetracker.class.taskName).html(response.new_timer_name);
+                    new_timer.find("input."+Timetracker.class.taskName).val(response.new_timer_name);
+                    new_timer.find("."+Timetracker.class.taskDurationTotal).attr("href", response.new_timer_id);
                     $(Timetracker.id.tasksContainer).append(new_timer);
                     startTimer(new_timer);
                     new_timer.find("."+Timetracker.class.taskStop).css("display", "inline");
-                    new_timer.addClass("active");
+                    new_timer.addClass(Timetracker.class.timerActive);
                 }
 
                 // If task exists, restart its timer
                 if (response.timer_exists) {
                     var existing_timer = $("#"+response.timer_name);
                     existing_timer.find("."+Timetracker.class.taskStop).css("display", "inline");
-                    existing_timer.addClass("active");
+                    existing_timer.addClass(Timetracker.class.timerActive);
                     if (response.timer_restart) startTimer(existing_timer);
                 }
 
-                $(Timetracker.id.totalTimeContainer).addClass("active");
+                $(Timetracker.id.totalTimeContainer).addClass(Timetracker.class.timerActive);
 
                 disableNewTasks();
             },
@@ -82,18 +125,12 @@ $(document).ready(function() {
                 console.debug(error);
             }
         });
-
-    });
-    // ================================================================================== //
+    }
 
 
-    // ===== STOP TASK ================================================================== //
-    $(document).on("click", '.'+Timetracker.class.taskStop, function(){
-
-        var button_clicked = $(this);
-
-        var timer_name = $(this).siblings(".task_name").val();
-        var timer_duration = $(this).siblings(".task_duration_total").attr("value");
+    function stopTask(button_clicked) {
+        var timer_name = button_clicked.siblings("."+Timetracker.class.taskName).val();
+        var timer_duration = button_clicked.siblings("."+Timetracker.class.taskDurationTotal).attr("value");
 
         $.ajax({
             type: 'post',
@@ -108,28 +145,23 @@ $(document).ready(function() {
                 stopTimer();
                 $(Timetracker.id.taskSubmitButton).removeClass(Timetracker.class.unclickableButton);
                 button_clicked.css("display", "none");
-                button_clicked.closest(".task_row").removeClass("active");
+                button_clicked.closest("."+Timetracker.class.taskRow).removeClass(Timetracker.class.timerActive);
                 enableNewTasks();
-                $(Timetracker.id.totalTimeContainer).removeClass("active");
+                $(Timetracker.id.totalTimeContainer).removeClass(Timetracker.class.timerActive);
             },
             error: function(error) {
                 console.debug('AJAX Error:');
                 console.debug(error);
             }
         });
-
-    });
-    // ================================================================================== //
+    }
 
 
-    // ===== DELETE TASK ================================================================ //
-    $(document).on("click", '.'+Timetracker.class.taskDelete, function(){
-
+    function deleteTask(task) {
         showLoading();
 
-        var task = $(this);
-        var timer_name = task.siblings(".task_name").val();
-        var timer_duration = task.siblings(".task_duration_total").val();
+        var timer_name = task.siblings("."+Timetracker.class.taskName).val();
+        var timer_duration = task.siblings("."+Timetracker.class.taskDurationTotal).val();
 
         $.ajax({
             type: 'post',
@@ -141,9 +173,9 @@ $(document).ready(function() {
             },
             success: function(response) {
                 stopTimer();
-                task.closest(".task_row").remove();
+                task.closest("."+Timetracker.class.taskRow).remove();
                 updateTotalTime($(Timetracker.id.tasksDurationTotal).val() - timer_duration);
-                $(Timetracker.id.totalTimeContainer).removeClass("active");
+                $(Timetracker.id.totalTimeContainer).removeClass(Timetracker.class.timerActive);
 
                 if (response == "active") {
                     enableNewTasks();
@@ -157,39 +189,14 @@ $(document).ready(function() {
                 hideLoading();
             }
         });
-
-    });
-    // ================================================================================== //
+    }
 
 
-    // ===== CHANGE DATE ================================================================ //
-    $("."+Timetracker.class.prevDay).on("click", function() {
-        var prevDate = Number($(Timetracker.id.taskDate).val()) - 1;
-        retrieveTimers(prevDate);
-        $(Timetracker.id.taskDate).val(prevDate);
-    });
-
-    $("."+Timetracker.class.nextDay).on("click", function() {
-        if ($(this).hasClass(Timetracker.class.unclickableButton)) return false;
-        var nextDate = Number($(Timetracker.id.taskDate).val()) + 1;
-        retrieveTimers(nextDate);
-        $(Timetracker.id.taskDate).val(nextDate);
-
-    });
-
-    $("."+Timetracker.class.toToday).on("click", function() {
-        retrieveTimers(0);
-        $(Timetracker.id.taskDate).val(0);
-    });
-    // ================================================================================== //
-
-
-    // ===== DELETE TASK ================================================================ //
-    $(Timetracker.id.logout).on("click", function(){
+    function logout() {
         showLoading();
         var timer_data = [];
 
-        $(".task_duration_total").each(function(index){
+        $("."+Timetracker.class.taskDurationTotal).each(function(index){
             var id = $(this).attr("href");
             var duration_secs = $(this).val();
             timer_data[id] = duration_secs;
@@ -214,8 +221,31 @@ $(document).ready(function() {
                 hideLoading();
             }
         });
-    });
-    // ================================================================================== //
+    }
+
+
+    function changeDate(button_clicked) {
+
+        if (button_clicked.hasClass(Timetracker.class.unclickableButton)) {
+            return false;
+        }
+
+        var currentDate = Number($(Timetracker.id.taskDate).val());
+        
+        if (button_clicked.hasClass(Timetracker.class.nextDay)) {
+            var requestedDate = currentDate + 1;
+        } else if (button_clicked.hasClass(Timetracker.class.prevDay)) {
+            var requestedDate = currentDate - 1;
+        } else if (button_clicked.hasClass(Timetracker.class.toToday)) {
+            var requestedDate = 0;
+        } else {
+            return false;
+        }
+
+        retrieveTimers(requestedDate);
+        $(Timetracker.id.taskDate).val(requestedDate);
+
+    }
 
 
     function retrieveTimers(date_difference = 0) {
@@ -234,7 +264,7 @@ $(document).ready(function() {
                 // DB queried to see if user has active timers for today
                 // If timers active, start their timer
 
-                $(".task_row").remove();
+                $("."+Timetracker.class.taskRow).remove();
 
                 if (date_difference >= 0) {
                     $("."+Timetracker.class.taskDelete).css("display", "inline");
@@ -261,13 +291,13 @@ $(document).ready(function() {
                         var new_timer = Timetracker.new_timer.clone();
 
                         new_timer.attr("id", response.timers[i].name);
-                        new_timer.find(".task_name").html(response.timers[i].name);
-                        new_timer.find("input.task_name").val(response.timers[i].name);
-                        new_timer.find(".task_duration_total").attr("href", response.timers[i].id);
+                        new_timer.find("."+Timetracker.class.taskName).html(response.timers[i].name);
+                        new_timer.find("input."+Timetracker.class.taskName).val(response.timers[i].name);
+                        new_timer.find("."+Timetracker.class.taskDurationTotal).attr("href", response.timers[i].id);
     
                         var timer_seconds = Number(response.timers[i].duration_secs);
     
-                        new_timer.find(".task_duration_total").val(timer_seconds);
+                        new_timer.find("."+Timetracker.class.taskDurationTotal).val(timer_seconds);
     
                         // Calculate time hours mins secs
                         var timer_hours = Math.floor(timer_seconds / 3600);
@@ -276,9 +306,9 @@ $(document).ready(function() {
 
                         total_secs += timer_seconds;
     
-                        new_timer.find(".task_hours").html(addZeros(timer_hours));
-                        new_timer.find(".task_mins").html(addZeros(timer_mins));
-                        new_timer.find(".task_secs").html(addZeros(timer_secs));
+                        new_timer.find("."+Timetracker.class.taskTimeHours).html(addZeros(timer_hours));
+                        new_timer.find("."+Timetracker.class.taskTimeMins).html(addZeros(timer_mins));
+                        new_timer.find("."+Timetracker.class.taskTimeSecs).html(addZeros(timer_secs));
     
                         $(Timetracker.id.tasksContainer).append(new_timer);
                         
@@ -286,8 +316,8 @@ $(document).ready(function() {
     
                         if (response.timers[i].active) {
                             startTimer(new_timer, true);
-                            new_timer.addClass("active");
-                            $(Timetracker.id.totalTimeContainer).addClass("active");
+                            new_timer.addClass(Timetracker.class.timerActive);
+                            $(Timetracker.id.totalTimeContainer).addClass(Timetracker.class.timerActive);
                             disableNewTasks();
                         } else {
                             new_timer.find("."+Timetracker.class.taskStop).css("display", "none");
@@ -311,17 +341,17 @@ $(document).ready(function() {
     function startTimer(timer, activeTask = false) {
         var totalTime = Number($(Timetracker.id.tasksDurationTotal).val());
 
-        var timer_hours = timer.find(".task_hours");
-        var timer_mins  = timer.find(".task_mins");
-        var timer_secs  = timer.find(".task_secs");
+        var timer_hours = timer.find("."+Timetracker.class.taskTimeHours);
+        var timer_mins  = timer.find("."+Timetracker.class.taskTimeMins);
+        var timer_secs  = timer.find("."+Timetracker.class.taskTimeSecs);
 
-        var totalSeconds = parseInt(timer.find(".task_duration_total").val());
+        var totalSeconds = parseInt(timer.find("."+Timetracker.class.taskDurationTotal).val());
         
-        window.taskTimer = setInterval(setTime, 1000);
+        Timetracker.taskTimer = setInterval(setTime, 1000);
 
         function setTime() {
             ++totalSeconds;
-            timer.find(".task_duration_total").val(totalSeconds);
+            timer.find("."+Timetracker.class.taskDurationTotal).val(totalSeconds);
             timer_secs.html(addZeros(totalSeconds % 60));
             timer_mins.html(addZeros(parseInt(totalSeconds / 60)));
             timer_hours.html(addZeros(parseInt(totalSeconds / (60 * 60))));
@@ -330,14 +360,8 @@ $(document).ready(function() {
     }
 
 
-    function initialiseTimetracker() {
-        retrieveTimers();
-        startUpdateTimers();
-    }
-
-    
     function stopTimer() {
-        clearInterval(window.taskTimer);
+        clearInterval(Timetracker.taskTimer);
     }
 
 
@@ -347,14 +371,14 @@ $(document).ready(function() {
 
         var updateTimerMins = 5;
         var updateTimerInterval = updateTimerMins * 60 * 1000;
-        window.updateTimer = setInterval(updateTimers, updateTimerInterval);
+        Timetracker.updateTimer = setInterval(updateTimers, updateTimerInterval);
 
         function updateTimers() {
             // retrieve all timers' total seconds values and send them to the db
 
             var timer_data = [];
 
-            $(".task_duration_total").each(function(index){
+            $("."+Timetracker.class.taskDurationTotal).each(function(index){
                 var id = $(this).attr("href");
                 var duration_secs = $(this).val();
                 timer_data[id] = duration_secs;
@@ -412,9 +436,11 @@ $(document).ready(function() {
         }
     }
 
+
     function showLoading() {
         Timetracker.loading.fadeIn(100);
     }
+
 
     function hideLoading() {
         Timetracker.loading.fadeOut();

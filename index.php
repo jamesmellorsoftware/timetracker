@@ -15,31 +15,24 @@ if (!$session->is_signed_in()) header("Location: login.php");
     </header>
 
     <section class="mainapp_newtask">
-
         <input id="task" type="text" class="mainapp_newtask_text"
         maxlength="<?php echo LIMIT_TIMER_NAME; ?>"
         placeholder="<?php echo MAINAPP_TEXT; ?>">
-
         <a id="task_submit" class="mainapp_newtask_button btn-1">
             <?php echo MAINAPP_BUTTON; ?>
         </a>
-
     </section>
 
     <section id="task_container" class="mainapp_tasks">
 
         <input type="hidden" href="" id="task_date" value="0">
 
-        <div id="no_tasks" class="mainapp_tasks_notasks">
-            No tasks yet.
-        </div>
+        <div id="no_tasks" class="mainapp_tasks_notasks"><?php echo MAINAPP_NO_TASKS; ?></div>
 
         <div id="total_time_container" class="mainapp_tasks_totaltime">
             <input type="hidden" href="" id="tasks_duration_total" value="0">
-            <span class="mainapp_tasks_totaltime_text">Total time worked: </span>
-            <span id="task_total" class="mainapp_tasks_totaltime_duration">
-                00:00:00
-            </span>
+            <span class="mainapp_tasks_totaltime_text"><?php echo MAINAPP_TOTAL_TIME; ?>: </span>
+            <span id="task_total" class="mainapp_tasks_totaltime_duration">00:00:00</span>
         </div>
 
         <div id="task_template" class="mainapp_tasks_task task_row">
@@ -73,7 +66,7 @@ if (!$session->is_signed_in()) header("Location: login.php");
 
     <section class="mainapp_date">
         <span class="mainapp_date_select btn-1 prevday">&lt;</span>
-        <span class="mainapp_date_date btn-1 today">Today</span>
+        <span class="mainapp_date_date btn-1 today"><?php echo MAINAPP_TODAY; ?></span>
         <span class="mainapp_date_select btn-1 nextday">&gt;</span>
     </section>
 

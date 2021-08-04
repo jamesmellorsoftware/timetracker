@@ -25,7 +25,10 @@ defined("LOGINREG_USERNAME") ? null : define("LOGINREG_USERNAME", "Username");
 // MAIN APP
 defined("MAINAPP_BUTTON") ? null : define("MAINAPP_BUTTON", "Start");
 defined("MAINAPP_LOGOUT") ? null : define("MAINAPP_LOGOUT", "Log Out");
+defined("MAINAPP_NO_TASKS") ? null : define("MAINAPP_NO_TASKS", "No tasks");
 defined("MAINAPP_TEXT") ? null : define("MAINAPP_TEXT", "Task Name");
+defined("MAINAPP_TODAY") ? null : define("MAINAPP_TODAY", "Today");
+defined("MAINAPP_TOTAL_TIME") ? null : define("MAINAPP_TOTAL_TIME", "Total time worked");
 
 // TIMERS
 defined("TIMER_ERROR_EMPTY") ? null : define("TIMER_ERROR_EMPTY", "Please give your task a name");
