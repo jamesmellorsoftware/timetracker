@@ -28,6 +28,7 @@ $(document).ready(function() {
 
     // Define templates
     Timetracker.new_timer = $(Timetracker.id.taskTemplate).clone();
+    Timetracker.loading = $("#loading");
 
     initialiseTimetracker();
 
@@ -123,6 +124,8 @@ $(document).ready(function() {
     // ===== DELETE TASK ================================================================ //
     $(document).on("click", '.'+Timetracker.class.taskDelete, function(){
 
+        showLoading();
+
         var task = $(this);
         var timer_name = task.siblings(".task_name").val();
         var timer_duration = task.siblings(".task_duration_total").val();
@@ -144,10 +147,13 @@ $(document).ready(function() {
                 if (response == "active") {
                     enableNewTasks();
                 }
+
+                hideLoading();
             },
             error: function(error) {
                 console.debug('AJAX Error:');
                 console.debug(error);
+                hideLoading();
             }
         });
 
@@ -178,6 +184,9 @@ $(document).ready(function() {
 
 
     function retrieveTimers(date_difference = 0) {
+
+        showLoading();
+
         $.ajax({
             type: 'post',
             url: Timetracker.mainController,
@@ -249,14 +258,18 @@ $(document).ready(function() {
                             new_timer.find("."+Timetracker.class.taskStop).css("display", "none");
                         }
                     }
-
                 }
+
+                hideLoading();
             },
             error: function(error) {
                 console.debug('AJAX Error:');
                 console.debug(error);
+                hideLoading();
             }
         });
+
+        
     }
     
     
@@ -295,6 +308,8 @@ $(document).ready(function() {
 
     function startUpdateTimers() {
 
+        showLoading();
+
         var updateTimerMins = 5;
         var updateTimerInterval = updateTimerMins * 60 * 1000;
         window.updateTimer = setInterval(updateTimers, updateTimerInterval);
@@ -320,10 +335,12 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     // Currently no feedback
+                    hideLoading();
                 },
                 error: function(error) {
                     console.debug('AJAX Error:');
                     console.debug(error);
+                    hideLoading();
                 }
             });
         }
@@ -358,6 +375,14 @@ $(document).ready(function() {
         if ($(Timetracker.id.newTaskName).attr("disabled") == "disabled") {
             $(Timetracker.id.newTaskName).removeAttr("disabled");
         }
+    }
+
+    function showLoading() {
+        Timetracker.loading.fadeIn(100);
+    }
+
+    function hideLoading() {
+        Timetracker.loading.fadeOut();
     }
 
 

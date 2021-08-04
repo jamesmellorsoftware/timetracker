@@ -1,6 +1,13 @@
 $(document).ready(function() {
 
+    window.Timetracker = {}
+    Timetracker.loading = $("#loading");
+
+    hideLoading();
+
     $("#login_register").on("click", function(){
+
+        showLoading();
 
         // Remove validation marks
         $("#username").removeClass("input-invalid");
@@ -49,14 +56,24 @@ $(document).ready(function() {
                         $("#password_errors").removeClass("nodisplay");
                         $("#password_errors").html(response.password);
                     }
+                    hideLoading();
                 }
             },
             error: function(error) {
                 console.debug('AJAX Error:');
                 console.debug(error);
+                hideLoading();
             }
         });
 
     });
+
+    function hideLoading() {
+        Timetracker.loading.fadeOut();
+    }
+
+    function showLoading() {
+        Timetracker.loading.fadeIn(100);
+    }
     
 });
