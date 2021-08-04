@@ -7,14 +7,6 @@ $(document).ready(function() {
         newTask();
     });
 
-    $(document).on("click", '.'+Timetracker.class.taskStop, function(){
-        stopTask($(this));
-    });
-
-    $(document).on("click", '.'+Timetracker.class.taskDelete, function(){
-        deleteTask($(this));
-    });
-
     Timetracker.element.logout.on("click", function(){
         logout();
     });
@@ -29,6 +21,14 @@ $(document).ready(function() {
 
     Timetracker.element.dateSelectToday.on("click", function() {
         changeDate($(this));
+    });
+
+    $(document).on("click", '.'+Timetracker.class.taskStop, function(){
+        stopTask($(this));
+    });
+
+    $(document).on("click", '.'+Timetracker.class.taskDelete, function(){
+        deleteTask($(this));
     });
 
     // Functions ======================================================================= //
@@ -72,6 +72,7 @@ $(document).ready(function() {
         Timetracker.element.tasksDate               = $("#task_date");
         Timetracker.element.totalTimeTodayContainer = $("#total_time_container");
         Timetracker.element.totalTimeToday          = $("#tasks_duration_total");
+        Timetracker.element.totalTimeTodayDisplay   = $("#task_total");
 
         // Starter functions
         retrieveTimers();
@@ -418,7 +419,7 @@ $(document).ready(function() {
         var total_mins = addZeros(Math.floor(total_seconds % 3600 / 60));
         total_secs = addZeros(Math.floor(total_seconds % 3600 % 60));
 
-        $("#task_total").html(total_hours+":"+total_mins+":"+total_secs);
+        Timetracker.element.totalTimeTodayDisplay.html(total_hours+":"+total_mins+":"+total_secs);
         Timetracker.element.totalTimeToday.val(total_seconds);
     }
 
