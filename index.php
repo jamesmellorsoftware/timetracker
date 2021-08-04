@@ -65,9 +65,9 @@ if (!$session->is_signed_in()) header("Location: login.php");
     </section>
 
     <section class="mainapp_date">
-        <span class="mainapp_date_select btn-1 prevday">&lt;</span>
-        <span class="mainapp_date_date btn-1 today"><?php echo MAINAPP_TODAY; ?></span>
-        <span class="mainapp_date_select btn-1 nextday">&gt;</span>
+        <span id="prevday" class="mainapp_date_select btn-1 prevday">&lt;</span>
+        <span id="today" class="mainapp_date_date btn-1 today"><?php echo MAINAPP_TODAY; ?></span>
+        <span id="nextday" class="mainapp_date_select btn-1 nextday">&gt;</span>
     </section>
 
 </main>

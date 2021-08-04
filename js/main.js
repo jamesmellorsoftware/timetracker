@@ -3,7 +3,7 @@ $(document).ready(function() {
     initialiseTimetracker();
 
     // Click handlers ================================================================== //
-    $(Timetracker.id.taskSubmitButton).on("click", function(){
+    Timetracker.element.submitNewTask.on("click", function(){
         newTask();
     });
 
@@ -15,19 +15,19 @@ $(document).ready(function() {
         deleteTask($(this));
     });
 
-    $(Timetracker.id.logout).on("click", function(){
+    Timetracker.element.logout.on("click", function(){
         logout();
     });
 
-    $("."+Timetracker.class.prevDay).on("click", function() {
+    Timetracker.element.dateSelectPrev.on("click", function() {
         changeDate($(this));
     });
 
-    $("."+Timetracker.class.nextDay).on("click", function() {
+    Timetracker.element.dateSelectNext.on("click", function() {
         changeDate($(this));
     });
 
-    $("."+Timetracker.class.toToday).on("click", function() {
+    Timetracker.element.dateSelectToday.on("click", function() {
         changeDate($(this));
     });
 
@@ -55,21 +55,23 @@ $(document).ready(function() {
         Timetracker.class.toToday           = "today";
         Timetracker.class.unclickableButton = "btn-1_unclickable";
 
-        // Define element IDs
-        Timetracker.id = {};
-        Timetracker.id.logout             = "#logout";
-        Timetracker.id.newTaskName        = "#task";
-        Timetracker.id.noTasksDisplay     = "#no_tasks";
-        Timetracker.id.taskDate           = "#task_date";
-        Timetracker.id.taskSubmitButton   = "#task_submit";
-        Timetracker.id.taskTemplate       = "#task_template";
-        Timetracker.id.tasksContainer     = "#task_container";
-        Timetracker.id.tasksDurationTotal = "#tasks_duration_total";
-        Timetracker.id.totalTimeContainer = "#total_time_container";
-
         // Define templates
-        Timetracker.new_timer = $(Timetracker.id.taskTemplate).clone();
-        Timetracker.loading   = $("#loading");
+        Timetracker.new_timer = $("#task_template").clone();
+
+        // Define elements
+        Timetracker.element = {};
+        Timetracker.element.dateSelectNext          = $("#nextday");
+        Timetracker.element.dateSelectPrev          = $("#prevday");
+        Timetracker.element.dateSelectToday         = $("#today");
+        Timetracker.element.logout                  = $("#logout");
+        Timetracker.element.loading                 = $("#loading");
+        Timetracker.element.newTaskInput            = $("#task");
+        Timetracker.element.noTasksDisplay          = $("#no_tasks");
+        Timetracker.element.submitNewTask           = $("#task_submit");
+        Timetracker.element.tasksContainer          = $("#task_container");
+        Timetracker.element.tasksDate               = $("#task_date");
+        Timetracker.element.totalTimeTodayContainer = $("#total_time_container");
+        Timetracker.element.totalTimeToday          = $("#tasks_duration_total");
 
         // Starter functions
         retrieveTimers();
@@ -79,11 +81,11 @@ $(document).ready(function() {
 
     function newTask() {
 
-        var timer_name = $(Timetracker.id.newTaskName).val();
+        var timer_name = Timetracker.element.newTaskInput.val();
 
         if (!timer_name.length) return false;
 
-        if ($(Timetracker.id.taskSubmitButton).hasClass(Timetracker.class.unclickableButton)) return false;
+        if (Timetracker.element.submitNewTask.hasClass(Timetracker.class.unclickableButton)) return false;
 
         $.ajax({
             type: 'post',
@@ -94,7 +96,7 @@ $(document).ready(function() {
                 "timer_name": timer_name
             },
             success: function(response) {
-                $(Timetracker.id.noTasksDisplay).css("display", "none");
+                Timetracker.element.noTasksDisplay.css("display", "none");
                 // If new task, add to list
                 if (response.new_timer) {
                     var new_timer = Timetracker.new_timer.clone();
@@ -102,7 +104,7 @@ $(document).ready(function() {
                     new_timer.find("."+Timetracker.class.taskName).html(response.new_timer_name);
                     new_timer.find("input."+Timetracker.class.taskName).val(response.new_timer_name);
                     new_timer.find("."+Timetracker.class.taskDurationTotal).attr("href", response.new_timer_id);
-                    $(Timetracker.id.tasksContainer).append(new_timer);
+                    Timetracker.element.tasksContainer.append(new_timer);
                     startTimer(new_timer);
                     new_timer.find("."+Timetracker.class.taskStop).css("display", "inline");
                     new_timer.addClass(Timetracker.class.timerActive);
@@ -116,7 +118,7 @@ $(document).ready(function() {
                     if (response.timer_restart) startTimer(existing_timer);
                 }
 
-                $(Timetracker.id.totalTimeContainer).addClass(Timetracker.class.timerActive);
+                Timetracker.element.totalTimeTodayContainer.addClass(Timetracker.class.timerActive);
 
                 disableNewTasks();
             },
@@ -143,11 +145,11 @@ $(document).ready(function() {
             },
             success: function(response) {
                 stopTimer();
-                $(Timetracker.id.taskSubmitButton).removeClass(Timetracker.class.unclickableButton);
+                Timetracker.element.submitNewTask.removeClass(Timetracker.class.unclickableButton);
                 button_clicked.css("display", "none");
                 button_clicked.closest("."+Timetracker.class.taskRow).removeClass(Timetracker.class.timerActive);
                 enableNewTasks();
-                $(Timetracker.id.totalTimeContainer).removeClass(Timetracker.class.timerActive);
+                Timetracker.element.totalTimeTodayContainer.removeClass(Timetracker.class.timerActive);
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -174,8 +176,8 @@ $(document).ready(function() {
             success: function(response) {
                 stopTimer();
                 task.closest("."+Timetracker.class.taskRow).remove();
-                updateTotalTime($(Timetracker.id.tasksDurationTotal).val() - timer_duration);
-                $(Timetracker.id.totalTimeContainer).removeClass(Timetracker.class.timerActive);
+                updateTotalTime(Timetracker.element.totalTimeToday.val() - timer_duration);
+                Timetracker.element.totalTimeTodayContainer.removeClass(Timetracker.class.timerActive);
 
                 if (response == "active") {
                     enableNewTasks();
@@ -230,7 +232,7 @@ $(document).ready(function() {
             return false;
         }
 
-        var currentDate = Number($(Timetracker.id.taskDate).val());
+        var currentDate = Number(Timetracker.element.tasksDate.val());
         
         if (button_clicked.hasClass(Timetracker.class.nextDay)) {
             var requestedDate = currentDate + 1;
@@ -243,7 +245,7 @@ $(document).ready(function() {
         }
 
         retrieveTimers(requestedDate);
-        $(Timetracker.id.taskDate).val(requestedDate);
+        Timetracker.element.tasksDate.val(requestedDate);
 
     }
 
@@ -268,22 +270,22 @@ $(document).ready(function() {
 
                 if (date_difference >= 0) {
                     $("."+Timetracker.class.taskDelete).css("display", "inline");
-                    $("."+Timetracker.class.toToday).html("Today");
-                    $("."+Timetracker.class.nextDay).addClass(Timetracker.class.unclickableButton);
+                    Timetracker.element.dateSelectToday.html("Today");
+                    Timetracker.element.dateSelectNext.addClass(Timetracker.class.unclickableButton);
                     enableNewTasks();
                 } else {
                     $("."+Timetracker.class.taskDelete).css("display", "none");
-                    $("."+Timetracker.class.toToday).html(response.date);
-                    $("."+Timetracker.class.nextDay).removeClass(Timetracker.class.unclickableButton);
+                    Timetracker.element.dateSelectToday.html(response.date);
+                    Timetracker.element.dateSelectNext.removeClass(Timetracker.class.unclickableButton);
                     disableNewTasks();
                 }
 
                 if (response.no_timers) {
-                    $(Timetracker.id.noTasksDisplay).css("display", "flex");
-                    $(Timetracker.id.totalTimeContainer).css("display", "none");
+                    Timetracker.element.noTasksDisplay.css("display", "flex");
+                    Timetracker.element.totalTimeTodayContainer.css("display", "none");
                 } else {
     
-                    $(Timetracker.id.noTasksDisplay).css("display", "none");
+                    Timetracker.element.noTasksDisplay.css("display", "none");
 
                     var total_secs = 0;
     
@@ -310,14 +312,14 @@ $(document).ready(function() {
                         new_timer.find("."+Timetracker.class.taskTimeMins).html(addZeros(timer_mins));
                         new_timer.find("."+Timetracker.class.taskTimeSecs).html(addZeros(timer_secs));
     
-                        $(Timetracker.id.tasksContainer).append(new_timer);
+                        Timetracker.element.tasksContainer.append(new_timer);
                         
                         updateTotalTime(total_secs);
     
                         if (response.timers[i].active) {
                             startTimer(new_timer, true);
                             new_timer.addClass(Timetracker.class.timerActive);
-                            $(Timetracker.id.totalTimeContainer).addClass(Timetracker.class.timerActive);
+                            Timetracker.element.totalTimeTodayContainer.addClass(Timetracker.class.timerActive);
                             disableNewTasks();
                         } else {
                             new_timer.find("."+Timetracker.class.taskStop).css("display", "none");
@@ -338,8 +340,8 @@ $(document).ready(function() {
     }
     
     
-    function startTimer(timer, activeTask = false) {
-        var totalTime = Number($(Timetracker.id.tasksDurationTotal).val());
+    function startTimer(timer) {
+        var totalTime = Number(Timetracker.element.totalTimeToday.val());
 
         var timer_hours = timer.find("."+Timetracker.class.taskTimeHours);
         var timer_mins  = timer.find("."+Timetracker.class.taskTimeMins);
@@ -362,6 +364,11 @@ $(document).ready(function() {
 
     function stopTimer() {
         clearInterval(Timetracker.taskTimer);
+    }
+
+
+    function stopUpdateTimer() {
+        clearInterval(Timetracker.updateTimer);
     }
 
 
@@ -412,38 +419,38 @@ $(document).ready(function() {
         total_secs = addZeros(Math.floor(total_seconds % 3600 % 60));
 
         $("#task_total").html(total_hours+":"+total_mins+":"+total_secs);
-        $(Timetracker.id.tasksDurationTotal).val(total_seconds);
+        Timetracker.element.totalTimeToday.val(total_seconds);
     }
 
 
     function disableNewTasks() {
-        $(Timetracker.id.newTaskName).val("");
-        if (!$(Timetracker.id.taskSubmitButton).hasClass(Timetracker.class.unclickableButton)) {
-            $(Timetracker.id.taskSubmitButton).addClass(Timetracker.class.unclickableButton);
+        Timetracker.element.newTaskInput.val("");
+        if (!Timetracker.element.submitNewTask.hasClass(Timetracker.class.unclickableButton)) {
+            Timetracker.element.submitNewTask.addClass(Timetracker.class.unclickableButton);
         }
-        if ($(Timetracker.id.newTaskName).attr("disabled") != "disabled") {
-            $(Timetracker.id.newTaskName).attr("disabled", "disabled");
+        if (Timetracker.element.newTaskInput.attr("disabled") != "disabled") {
+            Timetracker.element.newTaskInput.attr("disabled", "disabled");
         }
     }
 
     function enableNewTasks() {
-        $(Timetracker.id.newTaskName).val("");
-        if ($(Timetracker.id.taskSubmitButton).hasClass(Timetracker.class.unclickableButton)) {
-            $(Timetracker.id.taskSubmitButton).removeClass(Timetracker.class.unclickableButton);
+        Timetracker.element.newTaskInput.val("");
+        if (Timetracker.element.submitNewTask.hasClass(Timetracker.class.unclickableButton)) {
+            Timetracker.element.submitNewTask.removeClass(Timetracker.class.unclickableButton);
         }
-        if ($(Timetracker.id.newTaskName).attr("disabled") == "disabled") {
-            $(Timetracker.id.newTaskName).removeAttr("disabled");
+        if (Timetracker.element.newTaskInput.attr("disabled") == "disabled") {
+            Timetracker.element.newTaskInput.removeAttr("disabled");
         }
     }
 
 
     function showLoading() {
-        Timetracker.loading.fadeIn(100);
+        Timetracker.element.loading.fadeIn(100);
     }
 
 
     function hideLoading() {
-        Timetracker.loading.fadeOut();
+        Timetracker.element.loading.fadeOut();
     }
 
 
