@@ -9,7 +9,7 @@ if (!$session->is_signed_in()) header("Location: login.php");
         <h2 class="mainapp_header_appname">
             <?php echo APP_NAME; ?>
         </h2>
-        <a class="mainapp_header_logout btn-1" href="logout.php">
+        <a id="logout" class="mainapp_header_logout btn-1" href="logout.php">
             <?php echo MAINAPP_LOGOUT;?>
         </a>
     </header>

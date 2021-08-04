@@ -17,6 +17,7 @@ $(document).ready(function() {
 
     // Define element IDs
     Timetracker.id = {};
+    Timetracker.id.logout = "#logout";
     Timetracker.id.newTaskName = "#task";
     Timetracker.id.noTasksDisplay = "#no_tasks";
     Timetracker.id.taskDate = "#task_date";
@@ -179,6 +180,40 @@ $(document).ready(function() {
     $("."+Timetracker.class.toToday).on("click", function() {
         retrieveTimers(0);
         $(Timetracker.id.taskDate).val(0);
+    });
+    // ================================================================================== //
+
+
+    // ===== DELETE TASK ================================================================ //
+    $(Timetracker.id.logout).on("click", function(){
+        showLoading();
+        var timer_data = [];
+
+        $(".task_duration_total").each(function(index){
+            var id = $(this).attr("href");
+            var duration_secs = $(this).val();
+            timer_data[id] = duration_secs;
+        });
+
+        $.ajax({
+            type: 'post',
+            url: Timetracker.mainController,
+            dataType: 'json',
+            data: {
+                "update_timers": true,
+                "timer_data": timer_data
+            },
+            success: function(response) {
+                // Currently no feedback
+                hideLoading();
+                window.location = "logout.php";
+            },
+            error: function(error) {
+                console.debug('AJAX Error:');
+                console.debug(error);
+                hideLoading();
+            }
+        });
     });
     // ================================================================================== //
 
