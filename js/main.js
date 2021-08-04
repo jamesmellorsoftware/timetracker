@@ -126,6 +126,7 @@ $(document).ready(function() {
                 Timetracker.element.totalTimeTodayContainer.addClass(Timetracker.class.timerActive);
 
                 disableNewTasks();
+                hideNoTasks();
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -189,6 +190,9 @@ $(document).ready(function() {
                 }
 
                 hideLoading();
+
+                if ($("."+Timetracker.class.taskRow).length == 0) displayNoTasks();
+
             },
             error: function(error) {
                 console.debug('AJAX Error:');
@@ -287,11 +291,10 @@ $(document).ready(function() {
                 }
 
                 if (response.no_timers) {
-                    Timetracker.element.noTasksDisplay.css("display", "flex");
-                    Timetracker.element.totalTimeTodayContainer.css("display", "none");
+                    displayNoTasks();
                 } else {
     
-                    Timetracker.element.noTasksDisplay.css("display", "none");
+                    hideNoTasks();
 
                     var total_secs = 0;
     
@@ -355,7 +358,6 @@ $(document).ready(function() {
         var timer_secs  = timer.find("."+Timetracker.class.taskTimeSecs);
 
         var totalSeconds = parseInt(timer.find("."+Timetracker.class.taskDurationTotal).val());
-        "."+Timetracker.class.unclickableButton(timer);
         
         Timetracker.taskTimer = setInterval(setTime, 1000);
 
@@ -449,6 +451,18 @@ $(document).ready(function() {
         if (Timetracker.element.newTaskInput.attr("disabled") == "disabled") {
             Timetracker.element.newTaskInput.removeAttr("disabled");
         }
+    }
+
+    
+    function displayNoTasks() {
+        Timetracker.element.noTasksDisplay.css("display", "flex");
+        Timetracker.element.totalTimeTodayContainer.css("display", "none");
+    }
+
+
+    function hideNoTasks() {
+        Timetracker.element.noTasksDisplay.css("display", "none");
+        Timetracker.element.totalTimeTodayContainer.css("display", "flex");
     }
 
 
