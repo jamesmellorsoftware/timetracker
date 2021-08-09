@@ -23,7 +23,7 @@ $page = basename($_SERVER['PHP_SELF']);
     <?php } ?>
     
     <?php if ($page == "index.php") { ?>
-        <script src="js/main.js"></script>
+        <script src="js/timetracker.js"></script>
     <?php } ?>
 
 </head>

@@ -52,8 +52,10 @@ class User extends db_objects {
     public function verify_registration() {
 
         // Check empty fields
-        if (empty($this->username)) $this->errors['username'] = LOGINREG_ERROR_USERNAME_EMPTY;
-        if (empty($this->password)) $this->errors['password'] = LOGINREG_ERROR_PASSWORD_EMPTY;
+        if (empty($this->username) || strlen($this->username < 1)) $this->errors['username'] = LOGINREG_ERROR_USERNAME_EMPTY;
+        if (empty($this->password) || strlen($this->password < 1)) $this->errors['password'] = LOGINREG_ERROR_PASSWORD_EMPTY;
+
+        if (!empty($this->errors)) return false;
 
         // Check field lengths
         if (strlen($this->username) > LIMIT_USERNAME) $this->errors['username'] = LOGINREG_ERROR_USERNAME_LENGTH;

@@ -1,33 +1,28 @@
 $(document).ready(function() {
 
-    window.Timetracker = {}
-    Timetracker.loading = $("#loading");
+    // Starter functions
+    initialiseTimetrackerLogin();
 
-    hideLoading();
+    Timetracker.login.element.loading.hide();
 
-    $("#login_register").on("click", function(){
+    // Click handlers
+    Timetracker.login.element.loginregister.on("click", function(){
 
-        showLoading();
+        Timetracker.login.element.loading.show();
 
-        // Remove validation marks
-        $("#username").removeClass("input-invalid");
-        $("#username_errors").html(" ");
-        $("#username_errors").addClass("nodisplay");
-        $("#password").removeClass("input-invalid");
-        $("#password_errors").html(" ");
-        $("#password_errors").addClass("nodisplay");
+        Timetracker.login.removeErrors();
 
-        var username = $("#username").val();
-        var password = $("#password").val();
+        var username = Timetracker.login.element.username.val();
+        var password = Timetracker.login.element.username.val();
 
-        if ($("#login_register").hasClass("register")) {
+        if (Timetracker.login.element.loginregister.hasClass("register")) {
             var register = true;
             var login = false;
-            var controller = 'includes/controllers/register_controller.php';
-        } else if ($("#login_register").hasClass("login")) {
+            var controller = Timetracker.login.controller.register_controller;
+        } else if (Timetracker.login.element.loginregister.hasClass("login")) {
             var register = false;
             var login = true;
-            var controller = 'includes/controllers/login_controller.php';
+            var controller = Timetracker.login.controller.login_controller;
         }
 
         $.ajax({
@@ -42,38 +37,77 @@ $(document).ready(function() {
             },
             success: function(response){
                 if (response == true) {
-                    // Registration / login successful, take to index
-                    window.location = "index.php";
+                    Timetracker.login.login();
                 } else {
-                    // Fail, display errors
-                    if (response.username) {
-                        $("#username").addClass("input-invalid");
-                        $("#username_errors").removeClass("nodisplay");
-                        $("#username_errors").html(response.username);
-                    }
-                    if (response.password) {
-                        $("#password").addClass("input-invalid");
-                        $("#password_errors").removeClass("nodisplay");
-                        $("#password_errors").html(response.password);
-                    }
-                    hideLoading();
+                    Timetracker.login.displayErrors(response);
+                    Timetracker.login.element.loading.hide();
                 }
             },
             error: function(error) {
                 console.debug('AJAX Error:');
                 console.debug(error);
-                hideLoading();
+                Timetracker.login.element.loading.hide();
             }
         });
 
     });
 
-    function hideLoading() {
-        Timetracker.loading.fadeOut();
-    }
 
-    function showLoading() {
-        Timetracker.loading.fadeIn(100);
+    function initialiseTimetrackerLogin() {
+
+        // Define namespace
+        window.Timetracker = {};
+        window.Timetracker.login = {};
+
+        // Define controllers
+        Timetracker.login.controller = {};
+        Timetracker.login.controller.directory           = "includes/controllers";
+        Timetracker.login.controller.login_controller    = `${Timetracker.login.controller.directory}/login_controller.php`;
+        Timetracker.login.controller.register_controller = `${Timetracker.login.controller.directory}/register_controller.php`;
+
+        // Define elements
+        Timetracker.login.element = {};
+        Timetracker.login.element.loading         = $("#loading");
+        Timetracker.login.element.loginregister   = $("#login_register");
+        Timetracker.login.element.password        = $("#password");
+        Timetracker.login.element.password_errors = $("#password_errors");
+        Timetracker.login.element.username        = $("#username");
+        Timetracker.login.element.username_errors = $("#username_errors");
+    
+        // Methods
+        Timetracker.login.displayErrors = function(response) {
+            if (response.username) {
+                Timetracker.login.element.username.addClass("input-invalid");
+                Timetracker.login.element.username_errors.removeClass("nodisplay");
+                Timetracker.login.element.username_errors.html(response.username);
+            }
+            if (response.password) {
+                Timetracker.login.element.password.addClass("input-invalid");
+                Timetracker.login.element.password_errors.removeClass("nodisplay");
+                Timetracker.login.element.password_errors.html(response.password);
+            }
+        }
+
+        Timetracker.login.element.loading.hide = function() {
+            Timetracker.login.element.loading.fadeOut();
+        }
+
+        Timetracker.login.login = function() {
+            window.location = "index.php";
+        }
+
+        Timetracker.login.removeErrors = function() {
+            Timetracker.login.element.username.removeClass("input-invalid");
+            Timetracker.login.element.username_errors.html(" ");
+            Timetracker.login.element.username_errors.addClass("nodisplay");
+            Timetracker.login.element.password.removeClass("input-invalid");
+            Timetracker.login.element.password_errors.html(" ");
+            Timetracker.login.element.password_errors.addClass("nodisplay");
+        }
+    
+        Timetracker.login.element.loading.show = function() {
+            Timetracker.login.element.loading.fadeIn(100);
+        }
     }
     
 });
