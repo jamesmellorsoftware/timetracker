@@ -39,8 +39,9 @@ $(document).ready(function() {
         window.Timetracker = {}; // namespace
 
         // Define controller URLs
-        Timetracker.controllerDirectory = "includes/controllers/";
-        Timetracker.mainController = Timetracker.controllerDirectory + "mainapp_controller.php";
+        Timetracker.controllers = {};
+        Timetracker.controllers.directory = "includes/controllers/";
+        Timetracker.controllers.main      = Timetracker.controllers.directory + "mainapp_controller.php";
 
         // Define element classes
         Timetracker.class = {};
@@ -59,7 +60,8 @@ $(document).ready(function() {
         Timetracker.class.unclickableButton = "btn-1_unclickable";
 
         // Define templates
-        Timetracker.new_timer = $("#task_template").clone();
+        Timetracker.template = {};
+        Timetracker.template.new_timer = $("#task_template").clone();
 
         // Define elements
         Timetracker.element = {};
@@ -79,14 +81,19 @@ $(document).ready(function() {
     
         // Methods
         Timetracker.addNewTimer = function(response) {
-            let new_timer = Timetracker.new_timer.clone();
+
+            let new_timer = Timetracker.template.new_timer.clone();
+
             new_timer.attr("id", response.new_timer_name);
             new_timer.attr("href", response.new_timer_name.replace(" ", "_"));
             new_timer.find("."+Timetracker.class.taskName).html(response.new_timer_name);
             new_timer.find("input."+Timetracker.class.taskName).val(response.new_timer_name);
             new_timer.find("."+Timetracker.class.taskDurationTotal).attr("href", response.new_timer_id);
+
             Timetracker.element.tasksContainer.append(new_timer);
+
             Timetracker.startTimer(new_timer);
+
             new_timer.find("."+Timetracker.class.taskStop).css("display", "inline");
             new_timer.addClass(Timetracker.class.timerActive);
         }
@@ -123,7 +130,7 @@ $(document).ready(function() {
     
             $.ajax({
                 type: 'post',
-                url: Timetracker.mainController,
+                url: Timetracker.controllers.main,
                 dataType: 'json',
                 data: {
                     "delete_timer": true,
@@ -142,11 +149,7 @@ $(document).ready(function() {
                     if ($("."+Timetracker.class.taskRow).length == 0) Timetracker.displayNoTasks();
     
                 },
-                error: function(error) {
-                    console.debug('AJAX Error:');
-                    console.debug(error);
-                    Timetracker.hideLoading();
-                }
+                error: function(error) { Timetracker.showAjaxError(error); }
             });
         }
 
@@ -201,7 +204,7 @@ $(document).ready(function() {
     
             $.ajax({
                 type: 'post',
-                url: Timetracker.mainController,
+                url: Timetracker.controllers.main,
                 dataType: 'json',
                 data: {
                     "update_timers": true,
@@ -212,11 +215,7 @@ $(document).ready(function() {
                     Timetracker.hideLoading();
                     window.location = "logout.php";
                 },
-                error: function(error) {
-                    console.debug('AJAX Error:');
-                    console.debug(error);
-                    Timetracker.hideLoading();
-                }
+                error: function(error) { Timetracker.showAjaxError(error); }
             });
         }
 
@@ -229,7 +228,7 @@ $(document).ready(function() {
     
             $.ajax({
                 type: 'post',
-                url: Timetracker.mainController,
+                url: Timetracker.controllers.main,
                 dataType: 'json',
                 data: {
                     "start_timer": true,
@@ -246,10 +245,7 @@ $(document).ready(function() {
                     Timetracker.disableNewTasks();
                     Timetracker.hideNoTasks();
                 },
-                error: function(error) {
-                    console.debug('AJAX Error:');
-                    console.debug(error);
-                }
+                error: function(error) { Timetracker.showAjaxError(error); }
             });
         }
 
@@ -265,7 +261,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type: 'post',
-                url: Timetracker.mainController,
+                url: Timetracker.controllers.main,
                 dataType: 'json',
                 data: {
                     "retrieve_timers": true,
@@ -298,7 +294,7 @@ $(document).ready(function() {
                         var total_secs = 0;
         
                         for (var i = 0; i < response.timers.length; i++) {
-                            var new_timer = Timetracker.new_timer.clone();
+                            var new_timer = Timetracker.template.new_timer.clone();
     
                             new_timer.attr("id", response.timers[i].name);
                             new_timer.attr("href", response.timers[i].name.replace(" ", "_"));
@@ -345,12 +341,14 @@ $(document).ready(function() {
     
                     Timetracker.hideLoading();
                 },
-                error: function(error) {
-                    console.debug('AJAX Error:');
-                    console.debug(error);
-                    Timetracker.hideLoading();
-                }
+                error: function(error) { Timetracker.showAjaxError(error); }
             });
+        }
+
+        Timetracker.showAjaxError = function(error) {
+            console.debug('AJAX Error:');
+            console.debug(error);
+            Timetracker.hideLoading();
         }
 
         Timetracker.showLoading = function() {
@@ -398,7 +396,7 @@ $(document).ready(function() {
     
                 $.ajax({
                     type: 'post',
-                    url: Timetracker.mainController,
+                    url: Timetracker.controllers.main,
                     dataType: 'json',
                     data: {
                         "update_timers": true,
@@ -408,11 +406,7 @@ $(document).ready(function() {
                         // Currently no feedback
                         Timetracker.hideLoading();
                     },
-                    error: function(error) {
-                        console.debug('AJAX Error:');
-                        console.debug(error);
-                        Timetracker.hideLoading();
-                    }
+                    error: function(error) { Timetracker.showAjaxError(error); }
                 });
             }
         }
@@ -423,7 +417,7 @@ $(document).ready(function() {
     
             $.ajax({
                 type: 'post',
-                url: Timetracker.mainController,
+                url: Timetracker.controllers.main,
                 dataType: 'json',
                 data: {
                     "stop_timer": true,
@@ -438,10 +432,7 @@ $(document).ready(function() {
                     Timetracker.enableNewTasks();
                     Timetracker.element.totalTimeTodayContainer.removeClass(Timetracker.class.timerActive);
                 },
-                error: function(error) {
-                    console.debug('AJAX Error:');
-                    console.debug(error);
-                }
+                error: function(error) { Timetracker.showAjaxError(error); }
             });
         }
 
